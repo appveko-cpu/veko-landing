@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VEKO — Tu sauras enfin combien tu gagnes vraiment</title>
+<meta name="description" content="VEKO calcule ton bénéfice réel après pub, livraison et tous les frais cachés. Outil gratuit pour e-commerçants africains."/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ===== VEKO DESIGN SYSTEM EXACT ===== */
+:root {
+  --ultra-dark: #0F172A;
+  --dark-card: #1E293B;
+  --dark-elevated: #334155;
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --accent-green: #10B981;
+  --accent-blue: #3B82F6;
+  --accent-purple: #8B5CF6;
+  --accent-orange: #F59E0B;
+  --accent-red: #EF4444;
+  --veko-primary: #10B981;
+  --veko-primary-hover: #059669;
+  --diamond-border: rgba(255,255,255,0.12);
+  --diamond-border-hover: rgba(255,255,255,0.24);
+  --glass-bg: rgba(255,255,255,0.06);
+  --card-radius: 24px;
+  --blur-amount: 18px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--ultra-dark);
+  color:var(--text-primary);
+  font-family:'Inter',system-ui,sans-serif;
+  overflow-x:hidden;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;
+  background:rgba(15,23,42,0.92);
+  backdrop-filter:blur(var(--blur-amount));
+  border-bottom:1px solid var(--diamond-border);
+}
+.nav-logo{
+  font-size:22px;font-weight:900;letter-spacing:2px;
+  background:linear-gradient(135deg,var(--accent-green),var(--accent-blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.nav-badge{
+  background:rgba(16,185,129,0.1);
+  border:1px solid rgba(16,185,129,0.25);
+  color:var(--accent-green);
+  font-size:11px;font-weight:700;
+  padding:4px 12px;border-radius:20px;
+  letter-spacing:0.5px;text-transform:uppercase;
+}
+.nav-cta{
+  background:var(--veko-primary);color:#fff;
+  font-weight:700;font-size:13px;
+  padding:8px 18px;border-radius:10px;
+  text-decoration:none;
+  box-shadow:0 4px 15px rgba(16,185,129,0.3);
+  transition:background 0.2s,transform 0.2s;
+}
+.nav-cta:hover{background:var(--veko-primary-hover);transform:translateY(-1px);}
+
+/* ===== HERO ===== */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:120px 24px 80px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%,rgba(16,185,129,0.1) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 30% at 80% 90%,rgba(59,130,246,0.07) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse 80% 55% at 50% 0%,black 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(16,185,129,0.08);
+  border:1px solid rgba(16,185,129,0.2);
+  color:var(--accent-green);
+  font-size:11px;font-weight:700;
+  padding:6px 16px;border-radius:20px;
+  margin-bottom:28px;letter-spacing:1px;text-transform:uppercase;
+  animation:fadeUp 0.5s ease both;
+}
+.hero-dot{width:6px;height:6px;background:var(--accent-green);border-radius:50%;animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+h1{
+  font-size:clamp(34px,7vw,66px);font-weight:900;
+  line-height:1.05;letter-spacing:-2px;margin-bottom:20px;
+  animation:fadeUp 0.5s 0.1s ease both;
+}
+.h1-accent{
+  background:linear-gradient(135deg,var(--accent-green),var(--accent-blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-size:clamp(15px,2vw,18px);color:var(--text-muted);
+  max-width:520px;margin:0 auto 36px;font-weight:400;
+  animation:fadeUp 0.5s 0.2s ease both;
+}
+.hero-sub strong{color:var(--text-secondary);font-weight:600;}
+
+.hero-btns{
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
+  animation:fadeUp 0.5s 0.3s ease both;
+}
+
+/* ===== BTN SYSTEM EXACT ===== */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;border-radius:12px;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:15px;
+  cursor:pointer;border:none;text-decoration:none;
+  transition:all 0.2s;
+}
+.btn-primary{
+  background:var(--veko-primary);color:#fff;border:none;
+  box-shadow:0 4px 15px rgba(16,185,129,0.3);
+}
+.btn-primary:hover{background:var(--veko-primary-hover);transform:translateY(-2px);box-shadow:0 8px 25px rgba(16,185,129,0.4);}
+.btn-secondary{
+  background:transparent;color:var(--veko-primary);
+  border:2px solid var(--veko-primary);
+}
+.btn-secondary:hover{background:rgba(16,185,129,0.08);border-color:var(--veko-primary-hover);}
+
+/* ===== STATS STRIP ===== */
+.stats-strip{
+  background:var(--dark-card);
+  border-top:1px solid var(--diamond-border);
+  border-bottom:1px solid var(--diamond-border);
+  padding:36px 24px;
+}
+.stats-inner{max-width:760px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;}
+.stat-item{flex:1;min-width:180px;text-align:center;padding:0 24px;border-right:1px solid var(--diamond-border);}
+.stat-item:last-child{border-right:none;}
+.stat-num{
+  font-size:38px;font-weight:900;letter-spacing:-1px;
+  background:linear-gradient(135deg,var(--accent-green),var(--accent-blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-label{font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.4;}
+
+/* ===== SECTION ===== */
+.section{padding:80px 24px;max-width:860px;margin:0 auto;}
+.section-tag{
+  font-size:11px;font-weight:700;color:var(--accent-green);
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;
+}
+h2{font-size:clamp(26px,4vw,40px);font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:12px;}
+.section-sub{font-size:15px;color:var(--text-muted);margin-bottom:32px;max-width:480px;}
+
+/* ===== TABS ===== */
+.tab-row{
+  display:flex;gap:4px;
+  background:var(--dark-card);
+  border:1px solid var(--diamond-border);
+  border-radius:16px;padding:4px;
+  margin-bottom:20px;width:fit-content;
+}
+.tab-btn{
+  padding:10px 22px;border-radius:12px;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:13px;
+  border:none;cursor:pointer;background:transparent;
+  color:var(--text-muted);transition:all 0.2s;
+}
+.tab-btn.active{
+  background:var(--veko-primary);color:#fff;
+  box-shadow:0 4px 15px rgba(16,185,129,0.3);
+}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ===== CARD EXACT ===== */
+.card{
+  background:var(--dark-card);
+  border:1px solid var(--diamond-border);
+  border-radius:var(--card-radius);
+  padding:24px;margin-bottom:16px;
+  transition:border-color 0.2s;
+}
+.card:hover{border-color:var(--diamond-border-hover);}
+.card-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.card-header-icon{font-size:20px;color:var(--accent-blue);}
+.card-header-title{font-size:18px;font-weight:800;color:var(--text-primary);}
+
+/* ===== FORM EXACT ===== */
+.form-input{
+  width:100%;background:var(--dark-elevated);
+  border:1px solid var(--diamond-border);border-radius:12px;
+  padding:14px 16px;font-size:16px;color:var(--text-primary);
+  font-family:'Inter',sans-serif;outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+  -moz-appearance:textfield;
+}
+.form-input::-webkit-outer-spin-button,.form-input::-webkit-inner-spin-button{-webkit-appearance:none;}
+.form-input::placeholder{color:var(--text-muted);opacity:1;}
+.form-input:focus{border-color:var(--veko-primary);box-shadow:0 0 0 3px rgba(16,185,129,0.1);}
+select.form-input{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;
+  padding-right:40px;cursor:pointer;
+}
+select.form-input option{background:var(--dark-elevated);}
+.calc-label{
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:0.8px;color:var(--text-muted);display:block;margin-bottom:8px;
+}
+.calc-field{margin-bottom:20px;}
+
+/* ===== TOGGLE EXACT ===== */
+.toggle-group{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.toggle-btn{
+  padding:16px;border-radius:12px;font-weight:700;font-size:14px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  gap:10px;transition:all 0.2s;font-family:'Inter',sans-serif;
+  border:1px solid var(--diamond-border);
+}
+.toggle-btn.active{
+  background:var(--veko-primary);color:#fff;
+  border-color:transparent;box-shadow:0 4px 15px rgba(16,185,129,0.35);
+}
+.toggle-btn.inactive{background:var(--dark-elevated);color:var(--text-secondary);}
+
+/* ===== RESULT ROW EXACT ===== */
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;}
+.result-row:not(:last-child){border-bottom:1px solid var(--diamond-border);}
+
+/* ===== RESULT BOX ===== */
+.result-box{
+  background:var(--dark-elevated);border-radius:14px;
+  padding:16px 20px;margin-bottom:16px;
+  border:1px solid var(--diamond-border);
+  display:none;
+}
+.result-box.show{display:block;animation:fadeUp 0.3s ease;}
+
+/* ===== UPSELL ===== */
+.upsell{
+  background:var(--glass-bg);
+  border:1px solid var(--diamond-border);
+  border-radius:16px;padding:18px 20px;
+  margin-top:14px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+}
+.upsell p{font-size:13px;color:var(--text-muted);}
+.upsell strong{color:var(--text-secondary);display:block;margin-bottom:2px;font-size:14px;}
+
+/* ===== LABO STEPS ===== */
+.choices{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;}
+.choice-btn{
+  background:var(--dark-elevated);
+  border:1px solid var(--diamond-border);
+  color:var(--text-muted);font-size:13px;font-weight:600;
+  padding:10px 18px;border-radius:10px;cursor:pointer;
+  transition:all 0.2s;font-family:'Inter',sans-serif;
+}
+.choice-btn:hover{border-color:var(--accent-green);color:var(--accent-green);}
+.choice-btn.active{
+  background:rgba(16,185,129,0.1);
+  border-color:var(--accent-green);color:var(--accent-green);
+}
+.extra-fields{margin-top:14px;display:none;}
+.extra-fields.show{display:block;}
+.fields-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:540px){.fields-grid{grid-template-columns:1fr;}}
+
+/* ===== PRIX RESULT ===== */
+.prix-big{
+  font-size:42px;font-weight:900;letter-spacing:-2px;
+  background:linear-gradient(135deg,var(--accent-green),var(--accent-blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin:8px 0;
+}
+.analyse-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 14px;border-radius:20px;
+  font-size:12px;font-weight:700;margin-bottom:16px;
+}
+.analyse-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+@media(max-width:480px){.analyse-grid{grid-template-columns:1fr;}}
+.analyse-item{
+  background:var(--dark-elevated);border-radius:10px;padding:14px;
+  border:1px solid var(--diamond-border);
+}
+.analyse-item label{font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.analyse-val{font-size:18px;font-weight:800;}
+.color-green{color:var(--accent-green);}
+.color-blue{color:var(--accent-blue);}
+.color-red{color:var(--accent-red);}
+.color-orange{color:var(--accent-orange);}
+
+/* ===== WAITLIST ===== */
+.waitlist-section{
+  background:var(--dark-card);
+  border-top:1px solid var(--diamond-border);
+  padding:80px 24px;
+}
+.waitlist-inner{max-width:680px;margin:0 auto;}
+.wl-head{text-align:center;margin-bottom:40px;}
+.limited-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(245,158,11,0.1);
+  border:1px solid rgba(245,158,11,0.25);
+  color:var(--accent-orange);
+  font-size:11px;font-weight:700;
+  padding:5px 14px;border-radius:20px;margin-bottom:20px;
+  letter-spacing:0.5px;text-transform:uppercase;
+}
+.limited-dot{width:6px;height:6px;background:var(--accent-orange);border-radius:50%;animation:blink 1.5s infinite;}
+
+/* TALLY EMBED */
+.tally-container{
+  background:var(--ultra-dark);
+  border:1px solid var(--diamond-border);
+  border-radius:var(--card-radius);
+  overflow:hidden;min-height:500px;
+}
+.tally-container iframe{width:100%;min-height:500px;border:none;display:block;}
+
+.divider{
+  display:flex;align-items:center;gap:12px;
+  margin:24px 0;color:var(--text-muted);font-size:12px;font-weight:600;
+}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--diamond-border);}
+
+.btn-wa{
+  width:100%;background:rgba(37,211,102,0.06);
+  border:1px solid rgba(37,211,102,0.2);color:#25D366;
+  font-weight:700;font-size:15px;padding:16px;border-radius:14px;
+  text-decoration:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:all 0.2s;font-family:'Inter',sans-serif;
+}
+.btn-wa:hover{background:rgba(37,211,102,0.1);border-color:#25D366;}
+.privacy{font-size:11px;color:var(--text-muted);text-align:center;margin-top:14px;}
+
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;padding:28px 24px;
+  border-top:1px solid var(--diamond-border);
+  font-size:13px;color:var(--text-muted);
+}
+footer .logo-text{
+  background:linear-gradient(135deg,var(--accent-green),var(--accent-blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:900;
+}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* ===== LABO WIZARD ===== */
+.lsb-circle{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:var(--dark-elevated);border:2px solid var(--diamond-border);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:14px;color:var(--text-muted);
+  transition:all 0.3s;
+}
+.lsb-circle.lsb-active,.lsb-circle.lsb-done{
+  background:linear-gradient(135deg,#8b5cf6,#ec4899);border:none;color:white;
+  box-shadow:0 4px 15px rgba(139,92,246,0.4);
+}
+.lsb-line{flex:1;height:3px;margin:0 6px;background:var(--dark-elevated);border-radius:2px;transition:all 0.3s;}
+.lsb-line.lsb-line-done{background:linear-gradient(90deg,#8b5cf6,#ec4899);}
+.lsb-label{font-size:11px;font-weight:700;color:var(--text-muted);transition:all 0.3s;}
+.lsb-label-active{color:var(--text-primary);}
+.lsrc-btn{
+  display:flex;align-items:center;gap:12px;padding:14px 16px;
+  background:var(--dark-elevated);border:2px solid var(--diamond-border);
+  border-radius:12px;cursor:pointer;transition:all 0.3s;
+  text-align:left;width:100%;font-family:'Inter',sans-serif;
+}
+.lsrc-btn.lsrc-active{background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(236,72,153,0.15));border-color:#8b5cf6;}
+.lsrc-radio{width:20px;height:20px;border-radius:50%;flex-shrink:0;border:2px solid var(--diamond-border);transition:all 0.3s;}
+.lsrc-radio.lsrc-radio-active{border-color:#8b5cf6;background:radial-gradient(circle,#8b5cf6 45%,transparent 55%);}
+.ltrans-btn{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--dark-elevated);border:2px solid var(--diamond-border);border-radius:10px;cursor:pointer;transition:all 0.3s;text-align:left;width:100%;font-family:'Inter',sans-serif;}
+.ldur-btn{flex:1;min-width:70px;padding:10px 12px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;border:2px solid var(--diamond-border);background:var(--dark-elevated);color:var(--text-muted);transition:all 0.2s;}
+.ldur-btn.ldur-active{border-color:#3b82f6;background:rgba(59,130,246,0.15);color:#3b82f6;}
+.lstaff-btn{width:100%;padding:12px 14px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;text-align:left;display:flex;align-items:center;gap:10px;border:2px solid var(--diamond-border);background:var(--dark-elevated);color:var(--text-muted);transition:all 0.2s;}
+.lstaff-btn.lstaff-active{border-color:#10b981;background:rgba(16,185,129,0.1);color:#10b981;}
+.lpalier-btn{padding:8px 12px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;border:2px solid var(--diamond-border);background:var(--dark-elevated);color:var(--text-muted);transition:all 0.2s;}
+.lpalier-btn.lpalier-active{border-color:#f59e0b;background:rgba(245,158,11,0.15);color:#f59e0b;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div>
+    <div class="nav-logo">VEKO</div>
+    <div style="font-size:12px;color:var(--text-muted);font-weight:500;letter-spacing:0.3px;margin-top:2px;">La vision de ce que tu gagnes vraiment</div>
+  </div>
+  <div class="nav-badge">🔒 Accès sur invitation</div>
+  <a href="#waitlist" class="nav-cta">Rejoindre →</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-tag"><div class="hero-dot"></div>Outil gratuit — E-commerçants africains</div>
+  <h1>Tu fais des ventes.<br/>Mais tu gagnes <span class="h1-accent">combien vraiment ?</span></h1>
+  <p class="hero-sub">
+    Après la pub, la livraison, les frais Mobile Money et tous les coûts cachés —
+    <strong>VEKO te donne le chiffre exact.</strong> En quelques secondes.
+  </p>
+  <div class="hero-btns">
+    <a href="#tools" class="btn btn-primary"><i class="fas fa-calculator"></i> Tester gratuitement</a>
+    <a href="#waitlist" class="btn btn-secondary"><i class="fas fa-lock"></i> Accès fondateur</a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">73%</div>
+      <div class="stat-label">des e-commerçants africains surestiment leurs bénéfices</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">−40 000 <span style="font-size:18px;letter-spacing:0;">FCFA</span></div>
+      <div class="stat-label">perdus en moyenne par mois sans le savoir</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">0</div>
+      <div class="stat-label">outil adapté au marché africain n'existait avant VEKO</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<section id="tools" class="section">
+  <div class="reveal">
+    <div class="section-tag">Outils gratuits — Sans inscription</div>
+    <h2>Calcule. Décide.<br/><span class="h1-accent">Gagne vraiment.</span></h2>
+    <p class="section-sub">Entre tes données, vois la réalité de tes chiffres en 30 secondes.</p>
+  </div>
+
+  <div class="reveal">
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="switchTab('calcul',this)">
+        <i class="fas fa-truck" style="margin-right:6px;"></i>Calcul commande
+      </button>
+      <button class="tab-btn" onclick="switchTab('labo',this)">
+        <i class="fas fa-flask" style="margin-right:6px;"></i>Labo de prix
+      </button>
+    </div>
+
+    <!-- ===== CALCUL ===== -->
+    <div class="tab-panel active" id="p-calcul">
+
+      <!-- ETAPE 1 -->
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-truck card-header-icon"></i>
+          <span class="card-header-title">ETAPE 1 : Calcul Fournisseur</span>
+        </div>
+
+        <div class="toggle-group" style="margin-bottom:20px;">
+          <button class="toggle-btn active" id="t-fourn" onclick="setMode('fournisseur')">
+            <i class="fas fa-truck"></i> Fournisseur
+          </button>
+          <button class="toggle-btn inactive" id="t-prod" onclick="setMode('production')">
+            <i class="fas fa-industry"></i> Production
+          </button>
+        </div>
+
+        <!-- Mode fournisseur -->
+        <div id="mode-fourn">
+          <div class="calc-field">
+            <label class="calc-label">PRIX D'ACHAT UNITAIRE (FCFA)</label>
+            <input class="form-input" type="number" id="c-pa" placeholder="2500" oninput="calcRev()"/>
+          </div>
+          <div class="calc-field">
+            <label class="calc-label">NOMBRE D'ARTICLES EN STOCK</label>
+            <input class="form-input" type="number" id="c-nb" placeholder="10" oninput="calcRev()"/>
+          </div>
+          <div class="calc-field">
+            <label class="calc-label">FRAIS DE LIVRAISON / TRANSPORT (FCFA)</label>
+            <input class="form-input" type="number" id="c-ft" placeholder="5000" value="0" oninput="calcRev()"/>
+          </div>
+        </div>
+
+        <!-- Mode production -->
+        <div id="mode-prod" style="display:none;">
+          <div class="calc-field">
+            <label class="calc-label">COÛT DES MATIÈRES (FCFA)</label>
+            <input class="form-input" type="number" id="c-mat" placeholder="10000" oninput="calcRev()"/>
+          </div>
+          <div class="calc-field">
+            <label class="calc-label">COÛT DE LA MAIN D'ŒUVRE (FCFA)</label>
+            <input class="form-input" type="number" id="c-mdo" placeholder="5000" oninput="calcRev()"/>
+          </div>
+          <div class="calc-field">
+            <label class="calc-label">AUTRES FRAIS (FCFA)</label>
+            <input class="form-input" type="number" id="c-af" placeholder="2000" value="0" oninput="calcRev()"/>
+          </div>
+          <div class="calc-field">
+            <label class="calc-label">NOMBRE DE PRODUITS FABRIQUÉS</label>
+            <input class="form-input" type="number" id="c-np2" placeholder="10" oninput="calcRev()"/>
+          </div>
+        </div>
+
+        <!-- Prix de revient -->
+        <div id="c-pr-box" style="background:var(--dark-elevated);border-radius:12px;padding:14px 18px;border:1px solid var(--diamond-border);display:none;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-muted);font-weight:600;">Prix de revient unitaire</span>
+            <span style="font-size:20px;font-weight:900;color:var(--accent-blue);" id="c-pr-val">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ETAPE 2 -->
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-cart-shopping card-header-icon"></i>
+          <span class="card-header-title">ETAPE 2 : Calcul par Commande</span>
+        </div>
+
+        <div class="calc-field">
+          <label class="calc-label">NOMBRE DE PIÈCES COMMANDÉES</label>
+          <input class="form-input" type="number" id="c-np" placeholder="2" oninput="calcCmd()"/>
+        </div>
+        <div class="calc-field">
+          <label class="calc-label">PRIX DE VENTE UNITAIRE (FCFA)</label>
+          <input class="form-input" type="number" id="c-pv" placeholder="15000" oninput="calcCmd()"/>
+        </div>
+        <div class="calc-field">
+          <label class="calc-label">AVEZ-VOUS PAYÉ LA PUBLICITÉ (MÉTA, TIKTOK...) POUR CETTE COMMANDE ?</label>
+          <div class="toggle-group">
+            <button class="toggle-btn inactive" id="t-pub-oui" onclick="setPub(true)">
+              <i class="fas fa-rectangle-ad"></i> Oui, j'ai payé
+            </button>
+            <button class="toggle-btn active" id="t-pub-non" onclick="setPub(false)">
+              <i class="fas fa-xmark"></i> Non, pas de pub
+            </button>
+          </div>
+        </div>
+        <div id="pub-field" style="display:none;" class="calc-field">
+          <label class="calc-label">BUDGET PUB POUR CETTE COMMANDE (FCFA)</label>
+          <input class="form-input" type="number" id="c-pub" placeholder="2000" value="0" oninput="calcCmd()"/>
+        </div>
+        <div class="calc-field">
+          <label class="calc-label">FRAIS DE LIVRAISON AU CLIENT (FCFA)</label>
+          <input class="form-input" type="number" id="c-lc" placeholder="0" value="0" oninput="calcCmd()"/>
+        </div>
+        <div class="calc-field">
+          <label class="calc-label">AVEZ-VOUS QUELQU'UN QUI GÈRE VOS COMMANDES ?</label>
+          <div class="toggle-group">
+            <button class="toggle-btn inactive" id="t-comm-oui" onclick="setComm(true)">
+              <i class="fas fa-user"></i> Oui
+            </button>
+            <button class="toggle-btn active" id="t-comm-non" onclick="setComm(false)">
+              <i class="fas fa-user"></i> Non, moi-même
+            </button>
+          </div>
+        </div>
+        <div id="comm-field" style="display:none;" class="calc-field">
+          <label class="calc-label">COMMISSION PAR PIÈCE (FCFA)</label>
+          <input class="form-input" type="number" id="c-comm" placeholder="0" value="0" oninput="calcCmd()"/>
+        </div>
+      </div>
+
+      <!-- RÉSULTAT CALCUL -->
+      <div class="result-box" id="r-calcul">
+        <div class="result-row">
+          <span style="font-size:13px;color:var(--text-muted);font-weight:600;">Chiffre d'Affaires</span>
+          <span style="font-size:16px;font-weight:800;color:var(--accent-blue);" id="r-ca">—</span>
+        </div>
+        <div class="result-row">
+          <span style="font-size:13px;color:var(--text-muted);font-weight:600;">Coût d'acquisition</span>
+          <span style="font-size:16px;font-weight:700;color:var(--text-secondary);" id="r-acq">—</span>
+        </div>
+        <div class="result-row">
+          <span style="font-size:13px;color:var(--text-muted);font-weight:600;">Dépenses totales</span>
+          <span style="font-size:16px;font-weight:800;color:var(--accent-red);" id="r-dep">—</span>
+        </div>
+        <div style="height:1px;background:var(--diamond-border);margin:4px 0;"></div>
+        <div class="result-row" style="padding-top:10px;">
+          <span style="font-size:14px;color:var(--text-primary);font-weight:700;">Bénéfice Net</span>
+          <span style="font-size:24px;font-weight:900;" id="r-ben">—</span>
+        </div>
+        <div style="text-align:center;margin-top:8px;font-size:12px;color:var(--text-muted);">
+          Marge : <span id="r-marge" style="font-weight:700;">—</span>
+          <span id="r-statut" style="margin-left:10px;font-size:11px;"></span>
+        </div>
+        <div class="upsell" style="margin-top:14px;">
+          <div><strong>VEKO Pro calcule ça automatiquement pour chaque commande</strong>
+          <p>Historique, stocks, objectifs mensuels, export PDF et plus encore.</p></div>
+          <a href="#waitlist" class="btn btn-primary" style="font-size:13px;padding:10px 18px;">Accès fondateur →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LABO ===== -->
+    <div class="tab-panel" id="p-labo">
+
+      <!-- Step progress bar -->
+      <div id="labo-stepbar" style="margin-bottom:6px;">
+        <div style="display:flex;align-items:center;padding:0 4px;">
+          <div style="display:flex;align-items:center;flex:1;">
+            <div id="lsb-1" class="lsb-circle lsb-active">1</div>
+            <div id="lsb-line-1" class="lsb-line"></div>
+          </div>
+          <div style="display:flex;align-items:center;flex:1;">
+            <div id="lsb-2" class="lsb-circle">2</div>
+            <div id="lsb-line-2" class="lsb-line"></div>
+          </div>
+          <div>
+            <div id="lsb-3" class="lsb-circle">3</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;padding:0 2px;">
+          <div style="flex:1;text-align:left;"><span id="lsb-label-1" class="lsb-label lsb-label-active">La Vision</span><br/><span style="font-size:9px;color:var(--text-muted);">Prix &amp; objectifs</span></div>
+          <div style="flex:1;text-align:center;"><span id="lsb-label-2" class="lsb-label">Acquisition</span><br/><span style="font-size:9px;color:var(--text-muted);">Source produit</span></div>
+          <div style="flex:1;text-align:right;"><span id="lsb-label-3" class="lsb-label">Les Charges</span><br/><span style="font-size:9px;color:var(--text-muted);">Coûts fixes</span></div>
+        </div>
+      </div>
+
+      <!-- ── STEP 1 : LA VISION ── -->
+      <div id="labo-step1" class="card" style="margin-top:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#8b5cf6,#ec4899);display:flex;align-items:center;justify-content:center;color:white;font-size:16px;flex-shrink:0;"><i class="fas fa-eye"></i></div>
+          <div><div style="font-weight:800;font-size:15px;color:var(--text-primary);">La Vision</div><div style="font-size:11px;color:var(--text-muted);">Définis ton objectif commercial</div></div>
+        </div>
+
+        <div class="calc-field">
+          <label class="calc-label">NOM DU PRODUIT *</label>
+          <input class="form-input" type="text" id="l1-nom" placeholder="Ex: Sac à main cuir marron" oninput="lStep1Validate()"/>
+        </div>
+        <div class="calc-field">
+          <label class="calc-label">PRIX DE VENTE SOUHAITÉ (FCFA) *</label>
+          <input class="form-input" type="number" id="l1-ps" placeholder="Ex: 14500" oninput="lStep1Validate()"/>
+        </div>
+        <div class="calc-field">
+          <label class="calc-label">OBJECTIF BÉNÉFICE NET PAR PIÈCE (FCFA) *</label>
+          <input class="form-input" type="number" id="l1-ob" placeholder="Ex: 5000" oninput="lStep1Validate()"/>
+        </div>
+        <div class="calc-field" style="margin-bottom:24px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <label class="calc-label" style="margin:0;">PRIX CONCURRENT (FCFA)</label>
+            <label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
+              <input type="checkbox" id="l1-nsp" onchange="document.getElementById('l1-pc').disabled=this.checked;document.getElementById('l1-pc').style.opacity=this.checked?'0.4':'1';" style="accent-color:#8b5cf6;"/>
+              <span style="font-size:11px;color:var(--text-muted);">Je ne sais pas</span>
+            </label>
+          </div>
+          <input class="form-input" type="number" id="l1-pc" placeholder="Prix vendu par tes concurrents" oninput="lStep1Validate()"/>
+        </div>
+        <button class="btn btn-primary" id="l1-next" style="width:100%;justify-content:center;background:linear-gradient(135deg,#8b5cf6,#ec4899);box-shadow:0 4px 15px rgba(139,92,246,0.4);" onclick="lGoStep(2)" disabled>
+          Suivant — Source d'Acquisition <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <!-- ── STEP 2 : ACQUISITION ── -->
+      <div id="labo-step2" class="card" style="margin-top:16px;display:none;">
+        <div style="margin-bottom:20px;">
+          <div style="font-size:14px;font-weight:800;color:var(--text-primary);margin-bottom:4px;"><i class="fas fa-boxes" style="color:#8b5cf6;margin-right:6px;"></i>Étape 2 : La Source d'Acquisition</div>
+          <div style="font-size:11px;color:var(--text-muted);">Comment vous procurez-vous <strong id="l2-prodname" style="color:var(--text-primary);"></strong> ?</div>
+        </div>
+
+        <!-- Source radio cards -->
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+          <button type="button" class="lsrc-btn" id="lsrc-local" onclick="lSetSource('local')">
+            <div class="lsrc-radio" id="lr-local"></div>
+            <div><div style="font-size:13px;font-weight:700;color:var(--text-primary);"><i class="fas fa-store" style="color:#3b82f6;margin-right:6px;"></i>Achat Local</div><div style="font-size:10px;color:var(--text-muted);">Revendeur local, marché, boutique</div></div>
+          </button>
+          <button type="button" class="lsrc-btn" id="lsrc-import" onclick="lSetSource('import')">
+            <div class="lsrc-radio" id="lr-import"></div>
+            <div><div style="font-size:13px;font-weight:700;color:var(--text-primary);"><i class="fas fa-plane" style="color:#f59e0b;margin-right:6px;"></i>Importation</div><div style="font-size:10px;color:var(--text-muted);">International, Chine, Turquie, Dubai...</div></div>
+          </button>
+          <button type="button" class="lsrc-btn" id="lsrc-prod" onclick="lSetSource('production')">
+            <div class="lsrc-radio" id="lr-prod"></div>
+            <div><div style="font-size:13px;font-weight:700;color:var(--text-primary);"><i class="fas fa-hammer" style="color:#8b5cf6;margin-right:6px;"></i>Production / Fabrication</div><div style="font-size:10px;color:var(--text-muted);">Fait main, atelier, confection</div></div>
+          </button>
+        </div>
+
+        <!-- LOCAL fields -->
+        <div id="l2-local-f" style="display:none;">
+          <div class="calc-field">
+            <label class="calc-label">PRIX D'ACHAT UNITAIRE (FCFA)</label>
+            <input class="form-input" type="number" id="l2-pa" placeholder="2500" oninput="lStep2Validate()"/>
+          </div>
+          <div class="calc-field" style="margin-bottom:20px;">
+            <label class="calc-label">FRAIS DE TRANSPORT / RÉCUPÉRATION POUR CE STOCK ?</label>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <button type="button" class="ltrans-btn" id="ltrans-gratuit" onclick="lSetTransport('gratuit')" style="border-color:#8b5cf6;background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(236,72,153,0.15));">
+                <div style="width:16px;height:16px;border-radius:50%;flex-shrink:0;border:2px solid #8b5cf6;background:#8b5cf6;"></div>
+                <span style="font-size:12px;color:var(--text-primary);font-weight:600;">0F (Sur place / Inclus)</span>
+              </button>
+              <button type="button" class="ltrans-btn" id="ltrans-paye" onclick="lSetTransport('paye')">
+                <div style="width:16px;height:16px;border-radius:50%;flex-shrink:0;border:2px solid var(--diamond-border);background:transparent;" id="ltrans-paye-dot"></div>
+                <span style="font-size:12px;color:var(--text-primary);font-weight:600;">J'ai payé la livraison / le taxi</span>
+              </button>
+            </div>
+          </div>
+          <div id="l2-transport-f" style="display:none;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+              <div class="calc-field" style="margin-bottom:0;">
+                <label class="calc-label">MONTANT TRANSPORT (FCFA)</label>
+                <input class="form-input" type="number" id="l2-tmontant" placeholder="5000" oninput="lStep2Validate()"/>
+              </div>
+              <div class="calc-field" style="margin-bottom:0;">
+                <label class="calc-label">NB PIÈCES TRANSPORTÉES</label>
+                <input class="form-input" type="number" id="l2-tnb" placeholder="10" oninput="lStep2Validate()"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IMPORT fields -->
+        <div id="l2-import-f" style="display:none;">
+          <div class="calc-field" style="margin-bottom:16px;">
+            <label class="calc-label">CONNAISSEZ-VOUS LE COÛT GLOBAL OU LE DÉTAIL ?</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <button type="button" id="limport-global" onclick="lSetImportMode('global')" style="padding:12px;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:2px solid var(--diamond-border);background:var(--dark-elevated);color:var(--text-muted);display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s;">
+                <i class="fas fa-box"></i> Coût Global
+              </button>
+              <button type="button" id="limport-detail" onclick="lSetImportMode('detail')" style="padding:12px;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:2px solid var(--diamond-border);background:var(--dark-elevated);color:var(--text-muted);display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s;">
+                <i class="fas fa-list"></i> Détail
+              </button>
+            </div>
+          </div>
+          <div id="l2-import-global-f" style="display:none;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+              <div class="calc-field" style="margin-bottom:0;">
+                <label class="calc-label">COÛT TOTAL IMPORTATION (FCFA)</label>
+                <input class="form-input" type="number" id="l2-ig-cout" placeholder="150000" oninput="lStep2Validate()"/>
+              </div>
+              <div class="calc-field" style="margin-bottom:0;">
+                <label class="calc-label">NB ARTICLES IMPORTÉS</label>
+                <input class="form-input" type="number" id="l2-ig-nb" placeholder="50" oninput="lStep2Validate()"/>
+              </div>
+            </div>
+          </div>
+          <div id="l2-import-detail-f" style="display:none;">
+            <div class="calc-field">
+              <label class="calc-label">PRIX UNITAIRE FOURNISSEUR (FCFA)</label>
+              <input class="form-input" type="number" id="l2-id-pu" placeholder="2500" oninput="lStep2Validate()"/>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+              <div class="calc-field" style="margin-bottom:0;">
+                <label class="calc-label">FRAIS LOGISTIQUE TOTAL (FCFA)</label>
+                <input class="form-input" type="number" id="l2-id-fl" placeholder="30000" value="0" oninput="lStep2Validate()"/>
+              </div>
+              <div class="calc-field" style="margin-bottom:0;">
+                <label class="calc-label">NB ARTICLES DU LOT</label>
+                <input class="form-input" type="number" id="l2-id-nb" placeholder="20" oninput="lStep2Validate()"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRODUCTION fields -->
+        <div id="l2-prod-f" style="display:none;">
+          <div class="calc-field">
+            <label class="calc-label">COÛT DES MATIÈRES PREMIÈRES / ARTICLE (FCFA)</label>
+            <input class="form-input" type="number" id="l2-mat" placeholder="3000" oninput="lStep2Validate()"/>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:12px 14px;background:var(--dark-elevated);border:1px solid var(--diamond-border);border-radius:12px;">
+              <input type="checkbox" id="l2-temps-cb" onchange="document.getElementById('l2-temps-f').style.display=this.checked?'block':'none';lStep2Validate();" style="accent-color:#8b5cf6;width:18px;height:18px;"/>
+              <span style="font-size:13px;color:var(--text-primary);font-weight:600;">Facturer mon temps de travail</span>
+            </label>
+          </div>
+          <div id="l2-temps-f" style="display:none;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+              <div class="calc-field" style="margin-bottom:0;">
+                <label class="calc-label">HEURES PAR PIÈCE</label>
+                <input class="form-input" type="number" id="l2-heures" placeholder="2" oninput="lStep2Validate()"/>
+              </div>
+              <div class="calc-field" style="margin-bottom:0;">
+                <label class="calc-label">TARIF HORAIRE (FCFA)</label>
+                <input class="form-input" type="number" id="l2-taux" placeholder="1500" oninput="lStep2Validate()"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+          <button class="btn" style="justify-content:center;background:transparent;border:2px solid rgba(16,185,129,0.5);color:var(--accent-green);" onclick="lGoStep(1)">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <button class="btn" id="l2-next" style="justify-content:center;background:linear-gradient(135deg,#8b5cf6,#ec4899);color:white;box-shadow:0 4px 15px rgba(139,92,246,0.4);" onclick="lGoStep(3)" disabled>
+            Continuer <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3 : LES CHARGES ── -->
+      <div id="labo-step3" class="card" style="margin-top:16px;display:none;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#10b981,#3b82f6);display:flex;align-items:center;justify-content:center;color:white;font-size:16px;flex-shrink:0;"><i class="fas fa-receipt"></i></div>
+          <div><div style="font-weight:800;font-size:15px;color:var(--text-primary);">La Réalité des Charges</div><div style="font-size:11px;color:var(--text-muted);">Toutes les dépenses à intégrer</div></div>
+        </div>
+
+        <!-- Canal de vente -->
+        <div class="calc-field">
+          <label class="calc-label">OÙ VENDEZ-VOUS CE PRODUIT ?</label>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px;">
+            <label id="l3-canal-phys-lbl" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--dark-elevated);border:2px solid var(--diamond-border);border-radius:12px;cursor:pointer;transition:all 0.2s;">
+              <input type="checkbox" id="l3-phys" onchange="lUpdateCanal()" style="accent-color:#f59e0b;width:18px;height:18px;flex-shrink:0;"/>
+              <i class="fas fa-store" style="font-size:16px;flex-shrink:0;color:var(--text-muted);" id="l3-phys-icon"></i>
+              <span style="font-size:13px;font-weight:700;color:var(--text-muted);" id="l3-phys-text">Boutique Physique</span>
+            </label>
+            <label id="l3-canal-online-lbl" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(59,130,246,0.1);border:2px solid #3b82f6;border-radius:12px;cursor:pointer;transition:all 0.2s;">
+              <input type="checkbox" id="l3-online" onchange="lUpdateCanal()" checked style="accent-color:#3b82f6;width:18px;height:18px;flex-shrink:0;"/>
+              <i class="fas fa-globe" style="font-size:16px;flex-shrink:0;color:#3b82f6;" id="l3-online-icon"></i>
+              <span style="font-size:13px;font-weight:700;color:var(--text-primary);" id="l3-online-text">Vente en Ligne</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- BOUTIQUE PHYSIQUE sub-section -->
+        <div id="l3-boutique-section" style="display:none;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);border-radius:16px;padding:16px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+            <i class="fas fa-store" style="color:#f59e0b;font-size:16px;"></i>
+            <span style="font-size:14px;font-weight:800;color:#f59e0b;">Boutique Physique</span>
+          </div>
+          <div style="margin-bottom:14px;">
+            <label class="calc-label">PAYEZ-VOUS UN LOYER ?</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <button type="button" id="lloyer-oui" onclick="lSetLoyer(true)" style="padding:10px 8px;border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;border:2px solid var(--diamond-border);background:var(--dark-elevated);color:var(--text-muted);transition:all 0.2s;"><i class="fas fa-building" style="display:block;font-size:16px;margin-bottom:4px;"></i>Je paye un loyer</button>
+              <button type="button" id="lloyer-non" onclick="lSetLoyer(false)" style="padding:10px 8px;border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;border:2px solid var(--diamond-border);background:var(--dark-elevated);color:var(--text-muted);transition:all 0.2s;"><i class="fas fa-home" style="display:block;font-size:16px;margin-bottom:4px;"></i>Je ne paye rien</button>
+            </div>
+          </div>
+          <div id="l3-loyer-f" style="display:none;">
+            <div class="calc-field">
+              <label class="calc-label">MONTANT MENSUEL (FCFA)</label>
+              <input class="form-input" type="number" id="l3-loyer" placeholder="Ex: 80 000" oninput="lCalcFinal()"/>
+            </div>
+            <div id="l3-seul-section" style="display:none;">
+              <div style="margin-bottom:14px;">
+                <label class="calc-label">CE PRODUIT EST-IL LE SEUL VENDU DANS LA BOUTIQUE ?</label>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                  <button type="button" id="lseul-oui" onclick="lSetSeul(true)" style="padding:10px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:2px solid var(--diamond-border);background:var(--dark-elevated);color:var(--text-muted);transition:all 0.2s;">Oui, le seul</button>
+                  <button type="button" id="lseul-non" onclick="lSetSeul(false)" style="padding:10px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:2px solid var(--diamond-border);background:var(--dark-elevated);color:var(--text-muted);transition:all 0.2s;">Non, d'autres aussi</button>
+                </div>
+              </div>
+              <div id="l3-vol-seul-f" style="display:none;" class="calc-field">
+                <label class="calc-label">COMBIEN COMPTEZ-VOUS EN VENDRE CE MOIS-CI ?</label>
+                <input class="form-input" type="number" id="l3-vol-seul" placeholder="Ex: 30" oninput="lCalcFinal()"/>
+              </div>
+              <div id="l3-vol-partage-f" style="display:none;" class="calc-field">
+                <label class="calc-label">VOLUME MENSUEL DE CE PRODUIT (ENVIRON)</label>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">
+                  <button type="button" class="lpalier-btn" onclick="lSetPalier('10')">~10</button>
+                  <button type="button" class="lpalier-btn" onclick="lSetPalier('20')">~20</button>
+                  <button type="button" class="lpalier-btn" onclick="lSetPalier('50')">~50</button>
+                  <button type="button" class="lpalier-btn" onclick="lSetPalier('100')">~100</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VENTE EN LIGNE sub-section -->
+        <div id="l3-online-section" style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.25);border-radius:16px;padding:16px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+            <i class="fas fa-globe" style="color:#3b82f6;font-size:16px;"></i>
+            <span style="font-size:14px;font-weight:800;color:#3b82f6;">Vente en Ligne</span>
+          </div>
+          <div style="margin-bottom:14px;">
+            <label class="calc-label">FAITES-VOUS DE LA PUBLICITÉ ?</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <button type="button" id="lpub-oui" onclick="lSetPub(true)" style="padding:10px 8px;border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;border:2px solid var(--diamond-border);background:var(--dark-elevated);color:var(--text-muted);transition:all 0.2s;"><i class="fas fa-rectangle-ad" style="display:block;font-size:15px;margin-bottom:4px;"></i>Oui, je fais de la pub</button>
+              <button type="button" id="lpub-non" onclick="lSetPub(false)" style="padding:10px 8px;border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;border:2px solid var(--diamond-border);background:var(--dark-elevated);color:var(--text-muted);transition:all 0.2s;"><i class="fas fa-leaf" style="display:block;font-size:15px;margin-bottom:4px;"></i>Non, organique</button>
+            </div>
+          </div>
+          <div id="l3-pub-f" style="display:none;">
+            <div class="calc-field">
+              <label class="calc-label">BUDGET PUB TOTAL POUR CE LANCEMENT (FCFA)</label>
+              <input class="form-input" type="number" id="l3-pub" placeholder="Ex: 50 000" oninput="lCalcFinal()"/>
+            </div>
+            <div class="calc-field" style="margin-bottom:0;">
+              <label class="calc-label">EN COMBIEN DE TEMPS ESPÉREZ-VOUS ÉPUISER LE STOCK ?</label>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button type="button" class="ldur-btn" id="ldur-1sem" onclick="lSetDuree('1sem')">1 semaine</button>
+                <button type="button" class="ldur-btn ldur-active" id="ldur-1mois" onclick="lSetDuree('1mois')">1 mois</button>
+                <button type="button" class="ldur-btn" id="ldur-2mois" onclick="lSetDuree('2mois')">2 mois</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STAFF -->
+        <div class="calc-field">
+          <label class="calc-label"><i class="fas fa-users" style="margin-right:5px;color:#10b981;"></i>AVEZ-VOUS DU PERSONNEL ?</label>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <button type="button" class="lstaff-btn lstaff-active" id="lstaff-seul" onclick="lSetStaff('seul')"><i class="fas fa-user" style="margin-right:6px;"></i>Non, je gère seul</button>
+            <button type="button" class="lstaff-btn" id="lstaff-salaire" onclick="lSetStaff('salaire')"><i class="fas fa-money-bill-wave" style="margin-right:6px;"></i>Oui, salaire fixe mensuel</button>
+            <button type="button" class="lstaff-btn" id="lstaff-commission" onclick="lSetStaff('commission')"><i class="fas fa-percentage" style="margin-right:6px;"></i>Oui, commission par vente</button>
+          </div>
+          <div id="l3-salaire-f" style="display:none;margin-top:12px;">
+            <label class="calc-label">SALAIRE MENSUEL (FCFA)</label>
+            <input class="form-input" type="number" id="l3-salaire" placeholder="Ex: 30 000" oninput="lCalcFinal()"/>
+          </div>
+          <div id="l3-commission-f" style="display:none;margin-top:12px;">
+            <label class="calc-label">COMMISSION PAR PIÈCE VENDUE (FCFA)</label>
+            <input class="form-input" type="number" id="l3-comm" placeholder="Ex: 1 000" oninput="lCalcFinal()"/>
+          </div>
+        </div>
+
+        <div class="calc-field">
+          <label class="calc-label">AUTRES FRAIS DIVERS PAR PIÈCE (FCFA)</label>
+          <input class="form-input" type="number" id="l3-autres" placeholder="Emballage, étiquettes, etc." value="0" oninput="lCalcFinal()"/>
+        </div>
+
+        <!-- Quick preview -->
+        <div id="l3-preview" style="display:none;background:var(--dark-elevated);border:1px solid rgba(139,92,246,0.3);border-radius:14px;padding:16px;margin-bottom:20px;">
+          <div class="calc-label" style="margin-bottom:10px;">Aperçu rapide</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div><div style="font-size:10px;color:var(--text-muted);">Coût de revient</div><div style="font-size:16px;font-weight:900;color:#ef4444;" id="l3-prev-cout">—</div></div>
+            <div><div style="font-size:10px;color:var(--text-muted);">Bénéfice net</div><div style="font-size:16px;font-weight:900;" id="l3-prev-ben">—</div></div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <button class="btn" style="justify-content:center;background:transparent;border:2px solid rgba(16,185,129,0.5);color:var(--accent-green);" onclick="lGoStep(2)">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <button class="btn" id="l3-report-btn" style="justify-content:center;background:linear-gradient(135deg,#8b5cf6,#ec4899);color:white;" onclick="lShowReport()" disabled>
+            <i class="fas fa-chart-bar"></i> Voir le Rapport
+          </button>
+        </div>
+      </div>
+
+      <!-- ── RÉSULTAT / RAPPORT ── -->
+      <div id="labo-report" style="display:none;margin-top:16px;">
+        <!-- KPIs -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+          <div class="card" style="padding:18px;margin-bottom:0;">
+            <div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">COÛT DE REVIENT RÉEL</div>
+            <div style="font-size:22px;font-weight:900;color:#f97316;margin-bottom:4px;" id="lr-cout">—</div>
+            <div style="font-size:11px;color:var(--text-muted);">Ce que le produit vous coûte</div>
+          </div>
+          <div class="card" style="padding:18px;margin-bottom:0;">
+            <div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">PRIX SOUHAITÉ</div>
+            <div style="font-size:22px;font-weight:900;color:#3b82f6;margin-bottom:4px;" id="lr-ps">—</div>
+            <div style="font-size:11px;color:var(--text-muted);" id="lr-ps-sub">—</div>
+          </div>
+          <div class="card" style="padding:18px;margin-bottom:0;">
+            <div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">BÉNÉFICE / VENTE</div>
+            <div style="font-size:22px;font-weight:900;margin-bottom:4px;" id="lr-ben">—</div>
+            <div style="font-size:11px;font-weight:600;" id="lr-marge">—</div>
+          </div>
+          <div class="card" style="padding:18px;margin-bottom:0;">
+            <div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">PRIX CONCURRENT</div>
+            <div style="font-size:22px;font-weight:900;color:#f59e0b;margin-bottom:4px;" id="lr-pc">Non renseigné</div>
+            <div style="font-size:11px;color:var(--text-muted);" id="lr-pc-sub"></div>
+          </div>
+        </div>
+
+        <!-- Analyse conseil -->
+        <div class="card" style="margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><i class="fas fa-lightbulb" style="color:#8b5cf6;font-size:15px;"></i><span style="font-size:14px;font-weight:800;color:var(--text-primary);">Analyse Stratégique</span></div>
+          <p id="lr-conseil" style="font-size:13px;color:var(--text-secondary);line-height:1.7;white-space:pre-line;"></p>
+        </div>
+
+        <!-- Prix suggérés -->
+        <div class="card" style="margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><i class="fas fa-tags" style="color:#10b981;font-size:15px;"></i><span style="font-size:14px;font-weight:800;color:var(--text-primary);">Fourchette de Prix Recommandés</span></div>
+          <div id="lr-prices-grid" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+
+        <!-- Scanner coûts -->
+        <div class="card" style="margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><i class="fas fa-search" style="color:#3b82f6;font-size:15px;"></i><span style="font-size:14px;font-weight:800;color:var(--text-primary);">Scanner des Coûts</span></div>
+          <div id="lr-scanner"></div>
+        </div>
+
+        <!-- Upsell -->
+        <div class="upsell" style="margin-bottom:16px;">
+          <div><strong>VEKO Pro génère le rapport complet avec historique</strong><p>Seuil de rentabilité, simulation volume, scénarios de vie, conseils personnalisés.</p></div>
+          <a href="#waitlist" class="btn btn-primary" style="font-size:13px;padding:10px 18px;">Accès fondateur →</a>
+        </div>
+
+        <!-- Reset -->
+        <button onclick="lReset()" style="width:100%;padding:16px;background:var(--dark-elevated);border:1px solid var(--diamond-border);border-radius:16px;color:var(--text-primary);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-family:inherit;margin-bottom:20px;">
+          <i class="fas fa-rotate-right"></i> Nouvelle analyse
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<div class="waitlist-section" id="waitlist">
+  <div class="waitlist-inner">
+    <div class="wl-head">
+      <div class="limited-pill"><div class="limited-dot"></div>Moins de 20 places fondateurs</div>
+      <h2 style="margin-bottom:14px;">Tu as vu ce que VEKO peut faire.<br/><span class="h1-accent">Imagine ça pour chaque commande.</span></h2>
+      <p style="color:var(--text-muted);font-size:15px;max-width:480px;margin:0 auto;">
+        VEKO n'est pas encore public. Nous sélectionnons nos premiers membres à la main.
+        Remplis le formulaire — on te contacte sur WhatsApp sous 24h.
+      </p>
+    </div>
+
+    <div class="tally-container">
+      <iframe
+        src="https://tally.so/embed/zxKQxM?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        loading="lazy"
+        width="100%"
+        height="520"
+        frameborder="0"
+        title="VEKO — Accès Fondateur VIP">
+      </iframe>
+    </div>
+
+    <div class="divider">ou contacte-nous directement</div>
+
+    <a href="https://wa.me/242056994448?text=Bonjour%2C%20je%20veux%20en%20savoir%20plus%20sur%20VEKO%20et%20l'acc%C3%A8s%20fondateur" target="_blank" class="btn-wa">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Nous contacter sur WhatsApp
+    </a>
+    <p class="privacy">🔒 Données confidentielles — Aucun spam, aucune arnaque.</p>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 <span class="logo-text">VEKO</span> — La vision de ce que tu gagnes vraiment &nbsp;|&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c4a5b4b4b2a1afab84a3a9a5ada8eaa7aba9">[email&#160;protected]</a></p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function f(n){return Math.round(n).toLocaleString('fr-FR')+' FCFA';}
+
+// TABS
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('p-'+id).classList.add('active');
+}
+
+// ========== CALCUL ==========
+let calcMode='fournisseur', hasPub=false, hasComm=false;
+
+function setMode(m){
+  calcMode=m;
+  document.getElementById('mode-fourn').style.display=m==='fournisseur'?'block':'none';
+  document.getElementById('mode-prod').style.display=m==='production'?'block':'none';
+  document.getElementById('t-fourn').className='toggle-btn '+(m==='fournisseur'?'active':'inactive');
+  document.getElementById('t-prod').className='toggle-btn '+(m==='production'?'active':'inactive');
+  document.getElementById('c-pr-box').style.display='none';
+  calcRev();
+}
+
+function setPub(v){
+  hasPub=v;
+  document.getElementById('t-pub-oui').className='toggle-btn '+(v?'active':'inactive');
+  document.getElementById('t-pub-non').className='toggle-btn '+(!v?'active':'inactive');
+  document.getElementById('pub-field').style.display=v?'block':'none';
+  calcCmd();
+}
+
+function setComm(v){
+  hasComm=v;
+  document.getElementById('t-comm-oui').className='toggle-btn '+(v?'active':'inactive');
+  document.getElementById('t-comm-non').className='toggle-btn '+(!v?'active':'inactive');
+  document.getElementById('comm-field').style.display=v?'block':'none';
+  calcCmd();
+}
+
+let prixRevient=0;
+
+function calcRev(){
+  let pr=0;
+  if(calcMode==='fournisseur'){
+    const pa=+document.getElementById('c-pa').value||0;
+    const nb=+document.getElementById('c-nb').value||1;
+    const ft=+document.getElementById('c-ft').value||0;
+    if(pa>0){pr=(pa*nb+ft)/nb;}
+  } else {
+    const mat=+document.getElementById('c-mat').value||0;
+    const mdo=+document.getElementById('c-mdo').value||0;
+    const af=+document.getElementById('c-af').value||0;
+    const np2=+document.getElementById('c-np2').value||1;
+    const total=mat+mdo+af;
+    if(total>0){pr=total/np2;}
+  }
+  prixRevient=pr;
+  const box=document.getElementById('c-pr-box');
+  if(pr>0){
+    box.style.display='block';
+    document.getElementById('c-pr-val').textContent=f(pr);
+  } else {
+    box.style.display='none';
+  }
+  calcCmd();
+}
+
+function calcCmd(){
+  const np=+document.getElementById('c-np').value||0;
+  const pv=+document.getElementById('c-pv').value||0;
+  const pub=hasPub?(+document.getElementById('c-pub').value||0):0;
+  const lc=+document.getElementById('c-lc').value||0;
+  const comm=hasComm?(+document.getElementById('c-comm').value||0):0;
+
+  if(!np||!pv||!prixRevient)return;
+
+  const ca=np*pv;
+  const acq=np*prixRevient;
+  const commT=np*comm;
+  const dep=acq+commT+pub+lc;
+  const ben=ca-dep;
+  const marge=ca>0?(ben/ca)*100:0;
+
+  document.getElementById('r-ca').textContent=f(ca);
+  document.getElementById('r-acq').textContent=f(acq);
+  document.getElementById('r-dep').textContent=f(dep);
+  const benEl=document.getElementById('r-ben');
+  benEl.textContent=f(ben);
+  benEl.style.color=ben>=0?'var(--accent-green)':'var(--accent-red)';
+  const margeEl=document.getElementById('r-marge');
+  margeEl.textContent=marge.toFixed(1)+'%';
+  margeEl.style.color=marge>=25?'var(--accent-green)':marge>=10?'var(--accent-orange)':'var(--accent-red)';
+  document.getElementById('r-statut').textContent=!hasPub?'(définitif)':'(provisoire)';
+  document.getElementById('r-statut').style.color=!hasPub?'var(--accent-green)':'var(--accent-orange)';
+  document.getElementById('r-calcul').classList.add('show');
+}
+
+// ========== LABO WIZARD ==========
+let L={
+  step:1,
+  source:null,
+  transportMode:'gratuit',
+  importMode:null,
+  duree:'1mois',
+  staffMode:'seul',
+  hasLoyer:false,
+  canalPhysique:false,
+  canalEnLigne:true,
+  pubMode:null,
+  seulProduit:null,
+  palierLoyer:'',
+};
+
+function lf(n){return Math.round(n).toLocaleString('fr-FR')+' FCFA';}
+
+function lGoStep(s){
+  if(s===2){
+    document.getElementById('l2-prodname').textContent=document.getElementById('l1-nom').value||'votre produit';
+  }
+  L.step=s;
+  document.getElementById('labo-step1').style.display=s===1?'block':'none';
+  document.getElementById('labo-step2').style.display=s===2?'block':'none';
+  document.getElementById('labo-step3').style.display=s===3?'block':'none';
+  document.getElementById('labo-report').style.display='none';
+  // Update step bar
+  for(let i=1;i<=3;i++){
+    const c=document.getElementById('lsb-'+i);
+    const lbl=document.getElementById('lsb-label-'+i);
+    if(i<s){c.className='lsb-circle lsb-done';c.innerHTML='<i class="fas fa-check" style="font-size:12px;"></i>';}
+    else if(i===s){c.className='lsb-circle lsb-active';c.textContent=i;}
+    else{c.className='lsb-circle';c.textContent=i;}
+    if(lbl){lbl.className='lsb-label'+(i===s?' lsb-label-active':'');}
+  }
+  for(let i=1;i<=2;i++){
+    const ln=document.getElementById('lsb-line-'+i);
+    if(ln){ln.className='lsb-line'+(i<s?' lsb-line-done':'');}
+  }
+}
+
+function lStep1Validate(){
+  const nom=document.getElementById('l1-nom').value.trim();
+  const ps=+document.getElementById('l1-ps').value||0;
+  const ob=+document.getElementById('l1-ob').value||0;
+  const ok=nom!==''&&ps>0&&ob>0;
+  document.getElementById('l1-next').disabled=!ok;
+}
+
+function lSetSource(t){
+  L.source=t;
+  ['local','import','prod'].forEach(id=>{
+    const btn=document.getElementById('lsrc-'+id);
+    const radio=document.getElementById('lr-'+id);
+    const isActive=(id===t)||(id==='prod'&&t==='production');
+    btn.className='lsrc-btn'+(isActive?' lsrc-active':'');
+    radio.className='lsrc-radio'+(isActive?' lsrc-radio-active':'');
+  });
+  document.getElementById('l2-local-f').style.display=t==='local'?'block':'none';
+  document.getElementById('l2-import-f').style.display=t==='import'?'block':'none';
+  document.getElementById('l2-prod-f').style.display=t==='production'?'block':'none';
+  lStep2Validate();
+}
+
+function lSetTransport(m){
+  L.transportMode=m;
+  const gratuit=document.getElementById('ltrans-gratuit');
+  const paye=document.getElementById('ltrans-paye');
+  const dot=document.getElementById('ltrans-paye-dot');
+  if(m==='gratuit'){
+    gratuit.style.borderColor='#8b5cf6';
+    gratuit.style.background='linear-gradient(135deg,rgba(139,92,246,0.15),rgba(236,72,153,0.15))';
+    gratuit.children[0].style.background='#8b5cf6';
+    gratuit.children[0].style.borderColor='#8b5cf6';
+    paye.style.borderColor='var(--diamond-border)';
+    paye.style.background='var(--dark-elevated)';
+    dot.style.background='transparent';
+    dot.style.borderColor='var(--diamond-border)';
+  } else {
+    paye.style.borderColor='#8b5cf6';
+    paye.style.background='linear-gradient(135deg,rgba(139,92,246,0.15),rgba(236,72,153,0.15))';
+    dot.style.background='#8b5cf6';
+    dot.style.borderColor='#8b5cf6';
+    gratuit.style.borderColor='var(--diamond-border)';
+    gratuit.style.background='var(--dark-elevated)';
+    gratuit.children[0].style.background='transparent';
+    gratuit.children[0].style.borderColor='var(--diamond-border)';
+  }
+  document.getElementById('l2-transport-f').style.display=m==='paye'?'block':'none';
+  lStep2Validate();
+}
+
+function lSetImportMode(m){
+  L.importMode=m;
+  const gb=document.getElementById('limport-global');
+  const db=document.getElementById('limport-detail');
+  if(m==='global'){
+    gb.style.borderColor='#8b5cf6';gb.style.background='rgba(139,92,246,0.15)';gb.style.color='#a78bfa';
+    db.style.borderColor='var(--diamond-border)';db.style.background='var(--dark-elevated)';db.style.color='var(--text-muted)';
+  } else {
+    db.style.borderColor='#8b5cf6';db.style.background='rgba(139,92,246,0.15)';db.style.color='#a78bfa';
+    gb.style.borderColor='var(--diamond-border)';gb.style.background='var(--dark-elevated)';gb.style.color='var(--text-muted)';
+  }
+  document.getElementById('l2-import-global-f').style.display=m==='global'?'block':'none';
+  document.getElementById('l2-import-detail-f').style.display=m==='detail'?'block':'none';
+  lStep2Validate();
+}
+
+function lStep2Validate(){
+  let ok=false;
+  if(L.source==='local'){
+    const pa=+document.getElementById('l2-pa').value||0;
+    if(pa>0){
+      if(L.transportMode==='gratuit') ok=true;
+      else {
+        const m=+document.getElementById('l2-tmontant').value||0;
+        const n=+document.getElementById('l2-tnb').value||0;
+        ok=m>0&&n>0;
+      }
+    }
+  } else if(L.source==='import'){
+    if(L.importMode==='global'){
+      ok=(+document.getElementById('l2-ig-cout').value||0)>0&&(+document.getElementById('l2-ig-nb').value||0)>0;
+    } else if(L.importMode==='detail'){
+      ok=(+document.getElementById('l2-id-pu').value||0)>0&&(+document.getElementById('l2-id-nb').value||0)>0;
+    }
+  } else if(L.source==='production'){
+    const mat=+document.getElementById('l2-mat').value||0;
+    if(mat>0){
+      const cb=document.getElementById('l2-temps-cb').checked;
+      if(!cb) ok=true;
+      else ok=(+document.getElementById('l2-heures').value||0)>0&&(+document.getElementById('l2-taux').value||0)>0;
+    }
+  }
+  document.getElementById('l2-next').disabled=!ok;
+  if(ok) lCalcFinal();
+}
+
+function lUpdateCanal(){
+  L.canalPhysique=document.getElementById('l3-phys').checked;
+  L.canalEnLigne=document.getElementById('l3-online').checked;
+  // Style labels
+  const pl=document.getElementById('l3-canal-phys-lbl');
+  pl.style.background=L.canalPhysique?'rgba(245,158,11,0.1)':'var(--dark-elevated)';
+  pl.style.borderColor=L.canalPhysique?'#f59e0b':'var(--diamond-border)';
+  document.getElementById('l3-phys-icon').style.color=L.canalPhysique?'#f59e0b':'var(--text-muted)';
+  document.getElementById('l3-phys-text').style.color=L.canalPhysique?'var(--text-primary)':'var(--text-muted)';
+  const ol=document.getElementById('l3-canal-online-lbl');
+  ol.style.background=L.canalEnLigne?'rgba(59,130,246,0.1)':'var(--dark-elevated)';
+  ol.style.borderColor=L.canalEnLigne?'#3b82f6':'var(--diamond-border)';
+  document.getElementById('l3-online-icon').style.color=L.canalEnLigne?'#3b82f6':'var(--text-muted)';
+  document.getElementById('l3-online-text').style.color=L.canalEnLigne?'var(--text-primary)':'var(--text-muted)';
+  document.getElementById('l3-boutique-section').style.display=L.canalPhysique?'block':'none';
+  document.getElementById('l3-online-section').style.display=L.canalEnLigne?'block':'none';
+  lCalcFinal();
+}
+
+function lSetLoyer(v){
+  L.hasLoyer=v;
+  const ybtn=document.getElementById('lloyer-oui');
+  const nbtn=document.getElementById('lloyer-non');
+  if(v){
+    ybtn.style.borderColor='#f59e0b';ybtn.style.background='rgba(245,158,11,0.15)';ybtn.style.color='#f59e0b';
+    nbtn.style.borderColor='var(--diamond-border)';nbtn.style.background='var(--dark-elevated)';nbtn.style.color='var(--text-muted)';
+  } else {
+    nbtn.style.borderColor='#f59e0b';nbtn.style.background='rgba(245,158,11,0.15)';nbtn.style.color='#f59e0b';
+    ybtn.style.borderColor='var(--diamond-border)';ybtn.style.background='var(--dark-elevated)';ybtn.style.color='var(--text-muted)';
+  }
+  document.getElementById('l3-loyer-f').style.display=v?'block':'none';
+  document.getElementById('l3-seul-section').style.display=v?'block':'none';
+  lCalcFinal();
+}
+
+function lSetSeul(v){
+  L.seulProduit=v;
+  const ybtn=document.getElementById('lseul-oui');
+  const nbtn=document.getElementById('lseul-non');
+  if(v){
+    ybtn.style.borderColor='#f59e0b';ybtn.style.background='rgba(245,158,11,0.15)';ybtn.style.color='#f59e0b';
+    nbtn.style.borderColor='var(--diamond-border)';nbtn.style.background='var(--dark-elevated)';nbtn.style.color='var(--text-muted)';
+  } else {
+    nbtn.style.borderColor='#f59e0b';nbtn.style.background='rgba(245,158,11,0.15)';nbtn.style.color='#f59e0b';
+    ybtn.style.borderColor='var(--diamond-border)';ybtn.style.background='var(--dark-elevated)';ybtn.style.color='var(--text-muted)';
+  }
+  document.getElementById('l3-vol-seul-f').style.display=v===true?'block':'none';
+  document.getElementById('l3-vol-partage-f').style.display=v===false?'block':'none';
+  lCalcFinal();
+}
+
+function lSetPalier(p){
+  L.palierLoyer=p;
+  document.querySelectorAll('.lpalier-btn').forEach(b=>{
+    b.className='lpalier-btn'+(b.textContent.trim().replace('~','')==p?' lpalier-active':'');
+  });
+  lCalcFinal();
+}
+
+function lSetPub(v){
+  L.pubMode=v?'pub':'organique';
+  const ybtn=document.getElementById('lpub-oui');
+  const nbtn=document.getElementById('lpub-non');
+  if(v){
+    ybtn.style.borderColor='#3b82f6';ybtn.style.background='rgba(59,130,246,0.15)';ybtn.style.color='#3b82f6';
+    nbtn.style.borderColor='var(--diamond-border)';nbtn.style.background='var(--dark-elevated)';nbtn.style.color='var(--text-muted)';
+  } else {
+    nbtn.style.borderColor='#10b981';nbtn.style.background='rgba(16,185,129,0.1)';nbtn.style.color='#10b981';
+    ybtn.style.borderColor='var(--diamond-border)';ybtn.style.background='var(--dark-elevated)';ybtn.style.color='var(--text-muted)';
+  }
+  document.getElementById('l3-pub-f').style.display=v?'block':'none';
+  lCalcFinal();
+}
+
+function lSetDuree(d){
+  L.duree=d;
+  ['1sem','1mois','2mois'].forEach(id=>{
+    const btn=document.getElementById('ldur-'+id);
+    btn.className='ldur-btn'+(id===d?' ldur-active':'');
+  });
+  lCalcFinal();
+}
+
+function lSetStaff(m){
+  L.staffMode=m;
+  ['seul','salaire','commission'].forEach(id=>{
+    document.getElementById('lstaff-'+id).className='lstaff-btn'+(id===m?' lstaff-active':'');
+  });
+  document.getElementById('l3-salaire-f').style.display=m==='salaire'?'block':'none';
+  document.getElementById('l3-commission-f').style.display=m==='commission'?'block':'none';
+  lCalcFinal();
+}
+
+function lGetCoutBase(){
+  let coutBase=0, transport=0;
+  if(L.source==='local'){
+    coutBase=+document.getElementById('l2-pa').value||0;
+    if(L.transportMode==='paye'){
+      const m=+document.getElementById('l2-tmontant').value||0;
+      const n=+document.getElementById('l2-tnb').value||1;
+      transport=n>0?m/n:0;
+    }
+  } else if(L.source==='import'){
+    if(L.importMode==='global'){
+      const cout=+document.getElementById('l2-ig-cout').value||0;
+      const nb=+document.getElementById('l2-ig-nb').value||1;
+      coutBase=nb>0?cout/nb:0;
+    } else if(L.importMode==='detail'){
+      const pu=+document.getElementById('l2-id-pu').value||0;
+      const fl=+document.getElementById('l2-id-fl').value||0;
+      const nb=+document.getElementById('l2-id-nb').value||1;
+      coutBase=pu+(nb>0?fl/nb:0);
+    }
+  } else if(L.source==='production'){
+    const mat=+document.getElementById('l2-mat').value||0;
+    let temps=0;
+    if(document.getElementById('l2-temps-cb').checked){
+      const h=+document.getElementById('l2-heures').value||0;
+      const t=+document.getElementById('l2-taux').value||0;
+      temps=h*t;
+    }
+    coutBase=mat+temps;
+  }
+  return{coutBase,transport};
+}
+
+function lCalcFinal(){
+  const{coutBase,transport}=lGetCoutBase();
+  if(coutBase===0)return;
+
+  const ps=+document.getElementById('l1-ps').value||0;
+  const ob=+document.getElementById('l1-ob').value||0;
+  const pc=document.getElementById('l1-nsp').checked?0:(+document.getElementById('l1-pc').value||0);
+
+  // Loyer par article
+  let loyerParArticle=0;
+  if(L.canalPhysique&&L.hasLoyer){
+    const loyer=+document.getElementById('l3-loyer').value||0;
+    if(loyer>0){
+      if(L.seulProduit===true){
+        const nb=+document.getElementById('l3-vol-seul').value||50;
+        loyerParArticle=loyer/nb;
+      } else if(L.seulProduit===false&&L.palierLoyer){
+        const nb=parseInt(L.palierLoyer)||20;
+        loyerParArticle=loyer/nb;
+      }
+    }
+  }
+
+  // Pub par article
+  let pubParArticle=0;
+  if(L.canalEnLigne&&L.pubMode==='pub'){
+    const pub=+document.getElementById('l3-pub').value||0;
+    const jours=L.duree==='1sem'?7:L.duree==='1mois'?30:60;
+    const nbEstime=Math.ceil(jours*1.5);
+    pubParArticle=pub/Math.max(nbEstime,1);
+  }
+
+  // Staff
+  let comm=0;
+  if(L.staffMode==='commission'){
+    comm=+document.getElementById('l3-comm').value||0;
+  } else if(L.staffMode==='salaire'){
+    const sal=+document.getElementById('l3-salaire').value||0;
+    const jours=L.duree==='1sem'?7:L.duree==='1mois'?30:60;
+    const vol=Math.ceil(jours*1.5);
+    comm=sal/vol;
+  }
+
+  const autres=+document.getElementById('l3-autres').value||0;
+  const coutRevient=coutBase+transport+loyerParArticle+pubParArticle+comm+autres;
+  const benefice=ps-coutRevient;
+  const marge=ps>0?(benefice/ps)*100:0;
+
+  // Quick preview
+  const preview=document.getElementById('l3-preview');
+  const prevCout=document.getElementById('l3-prev-cout');
+  const prevBen=document.getElementById('l3-prev-ben');
+  if(coutRevient>0){
+    preview.style.display='block';
+    prevCout.textContent=lf(coutRevient);
+    prevBen.textContent=(benefice>=0?'+':'')+lf(benefice);
+    prevBen.style.color=benefice>=0?'#10b981':'#ef4444';
+  }
+  document.getElementById('l3-report-btn').disabled=!(coutRevient>0&&ps>0);
+
+  // Store for report
+  window._laboCalc={coutRevient,coutBase,transport,loyerParArticle,pubParArticle,comm,autres,benefice,marge,ps,ob,pc};
+}
+
+function lShowReport(){
+  lCalcFinal();
+  const C=window._laboCalc;
+  if(!C)return;
+  // Hide steps, show report
+  document.getElementById('labo-step1').style.display='none';
+  document.getElementById('labo-step2').style.display='none';
+  document.getElementById('labo-step3').style.display='none';
+  document.getElementById('labo-report').style.display='block';
+  // Update step bar all done
+  for(let i=1;i<=3;i++){
+    const c=document.getElementById('lsb-'+i);
+    c.className='lsb-circle lsb-done';
+    c.innerHTML='<i class="fas fa-check" style="font-size:12px;"></i>';
+  }
+  for(let i=1;i<=2;i++){
+    const ln=document.getElementById('lsb-line-'+i);
+    if(ln)ln.className='lsb-line lsb-line-done';
+  }
+
+  document.getElementById('lr-cout').textContent=lf(C.coutRevient);
+  document.getElementById('lr-ps').textContent=lf(C.ps);
+  document.getElementById('lr-ps-sub').textContent='Vous gagnez '+lf(C.benefice)+' par vente';
+
+  const benEl=document.getElementById('lr-ben');
+  benEl.textContent=(C.benefice>=0?'+':'')+lf(C.benefice);
+  benEl.style.color=C.benefice>=0?'#10b981':'#ef4444';
+  const margeEl=document.getElementById('lr-marge');
+  margeEl.textContent='Marge : '+Math.round(C.marge)+'%';
+  margeEl.style.color=C.marge>=25?'#10b981':C.marge>=15?'#f59e0b':'#ef4444';
+
+  if(C.pc>0){
+    document.getElementById('lr-pc').textContent=lf(C.pc);
+    document.getElementById('lr-pc-sub').textContent='Marge possible : '+lf(C.pc-C.coutRevient);
+  } else {
+    document.getElementById('lr-pc').textContent='Non renseigné';
+    document.getElementById('lr-pc').style.color='var(--text-muted)';
+    document.getElementById('lr-pc').style.fontSize='18px';
+  }
+
+  // Conseil
+  let conseil='';
+  if(C.marge>=40) conseil='EXCELLENT ! Avec '+Math.round(C.marge)+'% de marge à '+lf(C.ps)+', votre stratégie de prix est très solide. Vous avez une marge de sécurité confortable pour absorber les imprévus.';
+  else if(C.marge>=30) conseil='BONNE STRATÉGIE ! À '+lf(C.ps)+' avec '+Math.round(C.marge)+'% de marge, vous êtes dans une zone de confort. Votre prix permet de couvrir vos frais avec une réserve pour les aléas du commerce.';
+  else if(C.marge>=20) conseil='STRATÉGIE CORRECTE mais attention. Votre marge de '+Math.round(C.marge)+'% vous permet de fonctionner, mais elle reste fragile. Une promotion ou quelques retours pourraient vous mettre dans le rouge.';
+  else if(C.marge>=10) conseil='ATTENTION - MARGE SERRÉE ! Avec seulement '+Math.round(C.marge)+'% de marge, le moindre imprévu (augmentation fournisseur, retour client, remise) vous fera perdre de l\'argent.';
+  else if(C.marge>0) conseil='ALERTE ROUGE ! Votre marge de '+Math.round(C.marge)+'% est dangereusement basse. Revoyez votre prix de vente ou négociez vos coûts.';
+  else conseil='STOP - VOUS PERDEZ DE L\'ARGENT ! À '+lf(C.ps)+', chaque vente vous coûte '+lf(Math.abs(C.benefice))+'. Augmentez votre prix ou réduisez vos coûts immédiatement.';
+
+  if(C.pc>0){
+    const diff=((C.ps-C.pc)/C.pc)*100;
+    if(diff>20) conseil+='\n\nCOMPARATIF CONCURRENCE : Votre prix est '+Math.round(Math.abs(diff))+'% plus cher que la concurrence ('+lf(C.pc)+'). Justifiez cette différence : qualité, SAV, livraison rapide, packaging premium.';
+    else if(diff>0) conseil+='\n\nCOMPARATIF CONCURRENCE : Vous êtes légèrement au-dessus du marché (+'+Math.round(diff)+'%). Un bon argument commercial suffit.';
+    else conseil+='\n\nCOMPARATIF CONCURRENCE : Bon positionnement ! Vous êtes '+Math.round(Math.abs(diff))+'% moins cher que la concurrence ('+lf(C.pc)+').';
+  }
+
+  const verdictOK=C.marge>=25&&(C.pc===0||C.ps<=C.pc*1.15);
+  const verdictKO=C.marge<15||(C.pc>0&&C.ps>C.pc*1.25);
+  if(verdictOK) conseil+='\n\nVERDICT VEKO : Ce prix est VIABLE. Vous pouvez lancer votre produit avec confiance.';
+  else if(verdictKO) conseil+='\n\nVERDICT VEKO : Ce prix présente des RISQUES. Nous vous conseillons de revoir votre stratégie avant de lancer.';
+  else conseil+='\n\nVERDICT VEKO : Ce prix est ACCEPTABLE mais surveillez vos marges de près.';
+
+  document.getElementById('lr-conseil').textContent=conseil;
+
+  // Prix suggérés
+  const securite=C.coutRevient>0?C.coutRevient/0.85:0;
+  const conseille=C.coutRevient>0?C.coutRevient/0.65:0;
+  const premium=C.coutRevient>0?C.coutRevient/0.40:0;
+  const prices=[
+    {label:'Seuil de rentabilité',val:C.coutRevient,color:'#ef4444',desc:'Vous ne gagnez rien'},
+    {label:'Prix sécurité (+15%)',val:securite,color:'#f59e0b',desc:'Marge minimale recommandée'},
+    {label:'Prix conseillé (+35%)',val:conseille,color:'#10b981',desc:'Bonne rentabilité'},
+    {label:'Prix premium (+60%)',val:premium,color:'#8b5cf6',desc:'Excellente marge'},
+  ];
+  document.getElementById('lr-prices-grid').innerHTML=prices.map(p=>`
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--dark-elevated);border-radius:10px;border-left:3px solid ${p.color};">
+      <div><div style="font-size:12px;font-weight:700;color:var(--text-primary);">${p.label}</div><div style="font-size:10px;color:var(--text-muted);">${p.desc}</div></div>
+      <div style="font-size:15px;font-weight:900;color:${p.color};">${lf(p.val)}</div>
+    </div>`).join('');
+
+  // Scanner coûts
+  const lines=[
+    {label:'Prix acquisition / fabrication',val:C.coutBase},
+    {label:'Transport / article',val:C.transport},
+    {label:'Loyer / article',val:C.loyerParArticle},
+    {label:'Pub / article',val:C.pubParArticle},
+    {label:'Commission staff',val:C.comm},
+    {label:'Autres frais',val:C.autres},
+  ].filter(l=>l.val>0);
+  document.getElementById('lr-scanner').innerHTML=`
+    <div style="display:flex;flex-direction:column;gap:0;">
+      ${lines.map((l,i)=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;${i<lines.length-1?'border-bottom:1px solid var(--diamond-border);':''}"><span style="font-size:13px;color:var(--text-secondary);">${l.label}</span><span style="font-size:13px;font-weight:700;color:var(--text-primary);">${lf(l.val)}</span></div>`).join('')}
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;margin-top:4px;border-top:2px solid var(--diamond-border);">
+        <span style="font-size:14px;font-weight:800;color:var(--text-primary);">TOTAL COÛT DE REVIENT</span>
+        <span style="font-size:16px;font-weight:900;color:#ef4444;">${lf(C.coutRevient)}</span>
+      </div>
+    </div>`;
+}
+
+function lReset(){
+  L={step:1,source:null,transportMode:'gratuit',importMode:null,duree:'1mois',staffMode:'seul',hasLoyer:false,canalPhysique:false,canalEnLigne:true,pubMode:null,seulProduit:null,palierLoyer:''};
+  // Reset all inputs
+  ['l1-nom','l1-ps','l1-ob','l1-pc','l2-pa','l2-tmontant','l2-tnb','l2-ig-cout','l2-ig-nb','l2-id-pu','l2-id-fl','l2-id-nb','l2-mat','l2-heures','l2-taux','l3-loyer','l3-vol-seul','l3-pub','l3-salaire','l3-comm','l3-autres'].forEach(id=>{
+    const el=document.getElementById(id);if(el){el.value='';}
+  });
+  document.getElementById('l1-nsp').checked=false;
+  document.getElementById('l2-temps-cb').checked=false;
+  document.getElementById('l2-temps-f').style.display='none';
+  document.getElementById('l3-phys').checked=false;
+  document.getElementById('l3-online').checked=true;
+  lUpdateCanal();
+  lGoStep(1);
+  lStep1Validate();
+  // Reset source buttons
+  ['local','import','prod'].forEach(id=>{
+    document.getElementById('lsrc-'+id).className='lsrc-btn';
+    document.getElementById('lr-'+id).className='lsrc-radio';
+  });
+  document.getElementById('l2-local-f').style.display='none';
+  document.getElementById('l2-import-f').style.display='none';
+  document.getElementById('l2-prod-f').style.display='none';
+  document.getElementById('l2-import-global-f').style.display='none';
+  document.getElementById('l2-import-detail-f').style.display='none';
+  document.getElementById('l2-transport-f').style.display='none';
+  document.getElementById('l3-loyer-f').style.display='none';
+  document.getElementById('l3-seul-section').style.display='none';
+  document.getElementById('l3-pub-f').style.display='none';
+  document.getElementById('l3-salaire-f').style.display='none';
+  document.getElementById('l3-commission-f').style.display='none';
+  document.getElementById('l3-preview').style.display='none';
+  document.getElementById('l3-vol-seul-f').style.display='none';
+  document.getElementById('l3-vol-partage-f').style.display='none';
+  lSetTransport('gratuit');
+  lSetStaff('seul');
+  lSetDuree('1mois');
+}
+
+// Scroll reveal
+const revEls=document.querySelectorAll('.reveal');
+const revObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}});},{threshold:0.1});
+revEls.forEach(el=>revObs.observe(el));
+</script>
+</body>
+</html>
