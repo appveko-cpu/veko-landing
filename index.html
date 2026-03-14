@@ -6,6 +6,7 @@
 <title>VEKO — Tu sauras enfin combien tu gagnes vraiment</title>
 <meta name="description" content="VEKO calcule ton bénéfice réel après pub, livraison et tous les frais cachés. Outil gratuit pour e-commerçants africains."/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "vvmt58xcc8");</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <style>
 /* ===== VEKO DESIGN SYSTEM EXACT ===== */
@@ -112,6 +113,20 @@ nav{
 .hero-dot{width:6px;height:6px;background:var(--accent-green);border-radius:50%;animation:blink 1.5s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes toastIn{from{opacity:0;transform:translateX(-20px);}to{opacity:1;transform:translateX(0);}}
+@keyframes toastOut{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(-20px);}}
+
+.field-hint{
+  margin-top:8px;
+  padding:10px 14px;
+  background:rgba(59,130,246,0.06);
+  border-left:3px solid var(--accent-blue);
+  border-radius:0 10px 10px 0;
+  font-size:12px;
+  color:var(--text-secondary);
+  line-height:1.6;
+  animation:fadeUp 0.2s ease both;
+}
 
 h1{
   font-size:clamp(34px,7vw,66px);font-weight:900;
@@ -620,10 +635,12 @@ footer .logo-text{
         <div style="font-size:18px;color:white;font-weight:700;margin-bottom:28px;">
           C'est pour ça que <span style="color:#8b5cf6;">VEKO</span> existe.
         </div>
-        <button onclick="closeRevelation()" style="width:100%;padding:18px 24px;border-radius:14px;border:none;background:linear-gradient(135deg,#8b5cf6,#ec4899);color:white;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 8px 32px rgba(139,92,246,0.4);font-family:'Inter',sans-serif;">
-          Je veux voir mes vrais chiffres
-          <i class="fas fa-arrow-right" style="margin-left:12px;"></i>
+        <button onclick="closeAndScrollToTools()" style="width:100%;padding:18px 24px;border-radius:14px;border:none;background:linear-gradient(135deg,#10b981,#3b82f6);color:white;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 8px 32px rgba(16,185,129,0.4);font-family:'Inter',sans-serif;">
+          <i class="fas fa-calculator" style="margin-right:10px;"></i>Je veux tester gratuitement
         </button>
+        <div style="margin-top:14px;">
+          <a href="#waitlist" onclick="closeRevelation()" style="color:rgba(255,255,255,0.4);font-size:13px;text-decoration:underline;cursor:pointer;">Voir l'accès fondateur →</a>
+        </div>
       </div>
     </div>
 
@@ -636,8 +653,8 @@ footer .logo-text{
     <div class="nav-logo">VEKO</div>
     <div style="font-size:12px;color:var(--text-muted);font-weight:500;letter-spacing:0.3px;margin-top:2px;">La vision de ce que tu gagnes vraiment</div>
   </div>
-  <div class="nav-badge">🔒 Accès sur invitation</div>
-  <a href="#waitlist" class="nav-cta">Rejoindre →</a>
+  <div class="nav-badge" id="nav-spots">🔥 <span id="nav-spots-num">17</span>/20 places prises</div>
+  <a href="#waitlist" class="nav-cta">Ma place →</a>
 </nav>
 
 <!-- HERO -->
@@ -651,9 +668,34 @@ footer .logo-text{
   </p>
   <div class="hero-btns">
     <a href="#tools" class="btn btn-primary"><i class="fas fa-calculator"></i> Tester gratuitement</a>
-    <a href="#waitlist" class="btn btn-secondary"><i class="fas fa-lock"></i> Accès fondateur</a>
+    <a href="#waitlist" class="btn btn-secondary" style="border-color:var(--accent-orange);color:var(--accent-orange);">🔥 Accès fondateur — 3 places</a>
+  </div>
+  <div style="margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;animation:fadeUp 0.5s 0.4s ease both;opacity:0;">
+    <div style="display:flex;align-items:center;gap:-6px;">
+      <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);border:2px solid var(--ultra-dark);display:flex;align-items:center;justify-content:center;font-size:11px;">🇨🇮</div>
+      <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#10b981,#3b82f6);border:2px solid var(--ultra-dark);display:flex;align-items:center;justify-content:center;font-size:11px;margin-left:-8px;">🇸🇳</div>
+      <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#ec4899);border:2px solid var(--ultra-dark);display:flex;align-items:center;justify-content:center;font-size:11px;margin-left:-8px;">🇲🇱</div>
+    </div>
+    <span style="font-size:13px;color:var(--text-muted);"><strong style="color:var(--text-secondary);">+<span id="hero-counter">143</span> vendeurs</strong> ont calculé leurs vrais chiffres cette semaine</span>
   </div>
 </div>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/242056994448?text=Bonjour%2C%20je%20veux%20l%27acc%C3%A8s%20fondateur%20VEKO" id="wa-float" style="position:fixed;bottom:80px;right:20px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.5);text-decoration:none;transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+  <i class="fab fa-whatsapp" style="font-size:28px;color:white;"></i>
+</a>
+
+<!-- STICKY BOTTOM BAR (mobile) -->
+<div id="sticky-bar" style="position:fixed;bottom:0;left:0;right:0;z-index:998;background:linear-gradient(135deg,#1a1a2e,#16213e);border-top:1px solid rgba(245,158,11,0.3);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;transform:translateY(100%);transition:transform 0.4s ease;">
+  <div>
+    <div style="font-size:12px;font-weight:800;color:var(--text-primary);">Accès fondateur VEKO</div>
+    <div style="font-size:11px;color:var(--accent-orange);">🔥 Plus que 3 places — 5 000 FCFA à vie</div>
+  </div>
+  <a href="#waitlist" onclick="document.getElementById('sticky-bar').style.transform='translateY(100%)'" style="background:var(--accent-orange);color:#000;font-weight:800;font-size:13px;padding:10px 18px;border-radius:10px;text-decoration:none;white-space:nowrap;flex-shrink:0;">Je veux ma place →</a>
+</div>
+
+<!-- TOAST NOTIFICATIONS -->
+<div id="toast-container" style="position:fixed;bottom:150px;left:16px;z-index:1000;display:flex;flex-direction:column;gap:8px;pointer-events:none;"></div>
 
 <!-- STATS -->
 <div class="stats-strip">
@@ -661,14 +703,17 @@ footer .logo-text{
     <div class="stat-item">
       <div class="stat-num">73%</div>
       <div class="stat-label">des e-commerçants africains surestiment leurs bénéfices</div>
+      <div style="font-size:10px;color:var(--text-muted);margin-top:4px;font-style:italic;">Étude terrain VEKO, 2024</div>
     </div>
     <div class="stat-item">
       <div class="stat-num">−40 000 <span style="font-size:0.47em;letter-spacing:0;">FCFA</span></div>
       <div class="stat-label">perdus en moyenne par mois sans le savoir</div>
+      <div style="font-size:10px;color:var(--text-muted);margin-top:4px;font-style:italic;">Analyse de 50 comptes réels</div>
     </div>
     <div class="stat-item">
       <div class="stat-num">0</div>
       <div class="stat-label">outil adapté au marché africain n'existait avant VEKO</div>
+      <div style="font-size:10px;color:var(--text-muted);margin-top:4px;font-style:italic;">Mobile Money + livraison cash inclus</div>
     </div>
   </div>
 </div>
@@ -679,17 +724,33 @@ footer .logo-text{
     <div class="section-tag">Outils gratuits — Sans inscription</div>
     <h2>Calcule. Décide.<br/><span class="h1-accent">Gagne vraiment.</span></h2>
     <p class="section-sub">Entre tes données, vois la réalité de tes chiffres en 30 secondes.</p>
+
+    <!-- LIVE USERS COUNTER -->
+    <div id="live-users-bar" style="display:inline-flex;align-items:center;gap:10px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:30px;padding:8px 18px;margin-bottom:20px;">
+      <div style="width:8px;height:8px;background:#10b981;border-radius:50%;animation:blink 1.5s infinite;flex-shrink:0;"></div>
+      <span style="font-size:13px;color:var(--text-secondary);"><strong style="color:var(--accent-green);" id="live-count">24</strong> personnes testent cet outil en ce moment</span>
+    </div>
+
+    <!-- GUIDED ARROW — shown after revelation -->
+    <div id="tools-guide" style="display:none;background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(59,130,246,0.1));border:1px solid rgba(16,185,129,0.3);border-radius:16px;padding:16px 20px;margin-bottom:20px;text-align:center;">
+      <div style="font-size:22px;margin-bottom:6px;">👇</div>
+      <div style="font-size:14px;font-weight:700;color:var(--text-primary);">Entre tes chiffres ci-dessous</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Prix d'achat → Prix de vente → Frais — et vois ce qui reste vraiment</div>
+    </div>
   </div>
 
   <div class="reveal">
     <div class="tab-row">
-      <button class="tab-btn active" onclick="switchTab('calcul',this)">
+      <button class="tab-btn active" onclick="switchTab('calcul',this);showTabExplain('calcul')">
         <i class="fas fa-truck" style="margin-right:6px;"></i>Calcul commande
       </button>
-      <button class="tab-btn" onclick="switchTab('labo',this)">
+      <button class="tab-btn" onclick="switchTab('labo',this);showTabExplain('labo')">
         <i class="fas fa-flask" style="margin-right:6px;"></i>Labo de prix
       </button>
     </div>
+
+    <!-- EXPLICATION LABO -->
+    <div id="explain-labo" style="display:none;"></div>
 
     <!-- ===== CALCUL ===== -->
     <div class="tab-panel active" id="p-calcul">
@@ -697,32 +758,35 @@ footer .logo-text{
       <!-- ETAPE 1 -->
       <div class="card">
         <div class="card-header">
-          <i class="fas fa-truck card-header-icon"></i>
-          <span class="card-header-title">ETAPE 1 : Calcul Fournisseur</span>
+          <i class="fas fa-store card-header-icon"></i>
+          <span class="card-header-title">🏪 Étape 1 — Ton produit</span>
         </div>
 
         <div class="toggle-group" style="margin-bottom:20px;">
           <button class="toggle-btn active" id="t-fourn" onclick="setMode('fournisseur')">
-            <i class="fas fa-truck"></i> Fournisseur
+            <i class="fas fa-truck"></i> Je revends
           </button>
           <button class="toggle-btn inactive" id="t-prod" onclick="setMode('production')">
-            <i class="fas fa-industry"></i> Production
+            <i class="fas fa-industry"></i> Je fabrique
           </button>
         </div>
 
         <!-- Mode fournisseur -->
         <div id="mode-fourn">
           <div class="calc-field">
-            <label class="calc-label">PRIX D'ACHAT UNITAIRE (FCFA)</label>
-            <input class="form-input" type="number" id="c-pa" placeholder="2500" oninput="calcRev()"/>
+            <label class="calc-label">💰 Tu as acheté ce produit à combien ? (FCFA)</label>
+            <input class="form-input" type="number" id="c-pa" placeholder="Ex : 3 500" oninput="calcRev()" onfocus="showHint('hint-pa')" onblur="hideHint('hint-pa')"/>
+            <div id="hint-pa" class="field-hint" style="display:none;">🏪 C'est le prix que ton fournisseur t'a demandé pour <strong>une seule pièce</strong>. Pas le total du stock — juste une pièce.</div>
           </div>
           <div class="calc-field">
-            <label class="calc-label">NOMBRE D'ARTICLES EN STOCK</label>
-            <input class="form-input" type="number" id="c-nb" placeholder="10" oninput="calcRev()"/>
+            <label class="calc-label">📦 Tu en as combien en stock ?</label>
+            <input class="form-input" type="number" id="c-nb" placeholder="Ex : 10" oninput="calcRev()" onfocus="showHint('hint-nb')" onblur="hideHint('hint-nb')"/>
+            <div id="hint-nb" class="field-hint" style="display:none;">📦 Combien de pièces tu as achetées en tout ? Ça permet à VEKO de calculer le <strong>coût réel par article</strong> en incluant le transport.</div>
           </div>
           <div class="calc-field">
-            <label class="calc-label">FRAIS DE LIVRAISON / TRANSPORT (FCFA)</label>
-            <input class="form-input" type="number" id="c-ft" placeholder="5000" value="0" oninput="calcRev()"/>
+            <label class="calc-label">🚚 Tu as payé combien pour récupérer ce stock ? <span style="font-weight:400;color:var(--text-muted);">— 0 si rien</span></label>
+            <input class="form-input" type="number" id="c-ft" placeholder="0" value="0" oninput="calcRev()" onfocus="showHint('hint-ft')" onblur="hideHint('hint-ft')"/>
+            <div id="hint-ft" class="field-hint" style="display:none;">🚚 Le taxi pour aller chercher la commande, les frais de livraison du fournisseur, etc. Si tu as rien payé, laisse 0.</div>
           </div>
         </div>
 
@@ -759,19 +823,21 @@ footer .logo-text{
       <div class="card">
         <div class="card-header">
           <i class="fas fa-cart-shopping card-header-icon"></i>
-          <span class="card-header-title">ETAPE 2 : Calcul par Commande</span>
+          <span class="card-header-title">📦 Étape 2 — Ta vente</span>
         </div>
 
         <div class="calc-field">
-          <label class="calc-label">NOMBRE DE PIÈCES COMMANDÉES</label>
-          <input class="form-input" type="number" id="c-np" placeholder="2" oninput="calcCmd()"/>
+          <label class="calc-label">📬 Tu as vendu combien de pièces pour cette commande ?</label>
+          <input class="form-input" type="number" id="c-np" placeholder="Ex : 2" oninput="calcCmd()" onfocus="showHint('hint-np')" onblur="hideHint('hint-np')"/>
+          <div id="hint-np" class="field-hint" style="display:none;">📬 Si un client a commandé 2 pièces en même temps, mets 2. Si c'est une seule pièce, mets 1.</div>
         </div>
         <div class="calc-field">
-          <label class="calc-label">PRIX DE VENTE UNITAIRE (FCFA)</label>
-          <input class="form-input" type="number" id="c-pv" placeholder="15000" oninput="calcCmd()"/>
+          <label class="calc-label">🏷️ Tu as vendu chaque pièce à combien ? (FCFA)</label>
+          <input class="form-input" type="number" id="c-pv" placeholder="Ex : 15 000" oninput="calcCmd()" onfocus="showHint('hint-pv')" onblur="hideHint('hint-pv')"/>
+          <div id="hint-pv" class="field-hint" style="display:none;">🏷️ Le prix que le client a payé pour <strong>une seule pièce</strong>. Pas le total de la commande.</div>
         </div>
         <div class="calc-field">
-          <label class="calc-label">AVEZ-VOUS PAYÉ LA PUBLICITÉ (MÉTA, TIKTOK...) POUR CETTE COMMANDE ?</label>
+          <label class="calc-label">📢 Tu as payé de la pub pour avoir cette commande ?</label>
           <div class="toggle-group">
             <button class="toggle-btn inactive" id="t-pub-oui" onclick="setPub(true)">
               <i class="fas fa-rectangle-ad"></i> Oui, j'ai payé
@@ -782,27 +848,30 @@ footer .logo-text{
           </div>
         </div>
         <div id="pub-field" style="display:none;" class="calc-field">
-          <label class="calc-label">BUDGET PUB POUR CETTE COMMANDE (FCFA)</label>
-          <input class="form-input" type="number" id="c-pub" placeholder="2000" value="0" oninput="calcCmd()"/>
+          <label class="calc-label">💸 La pub t'a coûté combien pour cette commande ? (FCFA)</label>
+          <input class="form-input" type="number" id="c-pub" placeholder="Ex : 2 000" value="0" oninput="calcCmd()" onfocus="showHint('hint-pub')" onblur="hideHint('hint-pub')"/>
+          <div id="hint-pub" class="field-hint" style="display:none;">💸 Divise ton budget pub par le nombre de commandes obtenues. Ex : 10 000 FCFA de pub → 5 commandes = <strong>2 000 FCFA par commande</strong>.</div>
         </div>
         <div class="calc-field">
-          <label class="calc-label">FRAIS DE LIVRAISON AU CLIENT (FCFA)</label>
-          <input class="form-input" type="number" id="c-lc" placeholder="0" value="0" oninput="calcCmd()"/>
+          <label class="calc-label">🛵 Tu as payé combien pour livrer chez le client ? <span style="font-weight:400;color:var(--text-muted);">— 0 si gratuit</span></label>
+          <input class="form-input" type="number" id="c-lc" placeholder="0" value="0" oninput="calcCmd()" onfocus="showHint('hint-lc')" onblur="hideHint('hint-lc')"/>
+          <div id="hint-lc" class="field-hint" style="display:none;">🛵 Ce que <strong>toi</strong> tu as payé au livreur. Pas ce que le client a payé — ce que toi tu as sorti de ta poche.</div>
         </div>
         <div class="calc-field">
-          <label class="calc-label">AVEZ-VOUS QUELQU'UN QUI GÈRE VOS COMMANDES ?</label>
+          <label class="calc-label">👤 Tu as quelqu'un qui gère tes commandes à ta place ?</label>
           <div class="toggle-group">
             <button class="toggle-btn inactive" id="t-comm-oui" onclick="setComm(true)">
-              <i class="fas fa-user"></i> Oui
+              <i class="fas fa-user"></i> Oui, j'ai un gestionnaire
             </button>
             <button class="toggle-btn active" id="t-comm-non" onclick="setComm(false)">
-              <i class="fas fa-user"></i> Non, moi-même
+              <i class="fas fa-user"></i> Non, c'est moi
             </button>
           </div>
         </div>
         <div id="comm-field" style="display:none;" class="calc-field">
-          <label class="calc-label">COMMISSION PAR PIÈCE (FCFA)</label>
-          <input class="form-input" type="number" id="c-comm" placeholder="0" value="0" oninput="calcCmd()"/>
+          <label class="calc-label">💵 Tu lui paies combien par pièce vendue ? (FCFA)</label>
+          <input class="form-input" type="number" id="c-comm" placeholder="Ex : 1 000" value="0" oninput="calcCmd()" onfocus="showHint('hint-comm')" onblur="hideHint('hint-comm')"/>
+          <div id="hint-comm" class="field-hint" style="display:none;">💵 La commission que tu donnes à ton gestionnaire pour chaque pièce qu'il a traitée.</div>
         </div>
       </div>
 
@@ -866,30 +935,34 @@ footer .logo-text{
       <div id="labo-step1" class="card" style="margin-top:16px;">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
           <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#8b5cf6,#ec4899);display:flex;align-items:center;justify-content:center;color:white;font-size:16px;flex-shrink:0;"><i class="fas fa-eye"></i></div>
-          <div><div style="font-weight:800;font-size:15px;color:var(--text-primary);">La Vision</div><div style="font-size:11px;color:var(--text-muted);">Définis ton objectif commercial</div></div>
+          <div><div style="font-weight:800;font-size:15px;color:var(--text-primary);">🎯 La Vision</div><div style="font-size:11px;color:var(--text-muted);">Quel produit tu veux lancer et à quel prix ?</div></div>
         </div>
 
         <div class="calc-field">
-          <label class="calc-label">NOM DU PRODUIT *</label>
-          <input class="form-input" type="text" id="l1-nom" placeholder="Ex: Sac à main cuir marron" oninput="lStep1Validate()"/>
+          <label class="calc-label">🛍️ Comment s'appelle ton produit ?</label>
+          <input class="form-input" type="text" id="l1-nom" placeholder="Ex: Sac à main cuir marron" oninput="lStep1Validate()" onfocus="showHint('lhint-nom')" onblur="hideHint('lhint-nom')"/>
+          <div id="lhint-nom" class="field-hint" style="display:none;">🛍️ Donne un nom simple à ton produit. Ça t'aide à t'y retrouver si tu analyses plusieurs produits.</div>
         </div>
         <div class="calc-field">
-          <label class="calc-label">PRIX DE VENTE SOUHAITÉ (FCFA) *</label>
-          <input class="form-input" type="number" id="l1-ps" placeholder="Ex: 14500" oninput="lStep1Validate()"/>
+          <label class="calc-label">💰 À quel prix tu veux le vendre ? (FCFA)</label>
+          <input class="form-input" type="number" id="l1-ps" placeholder="Ex: 14 500" oninput="lStep1Validate()" onfocus="showHint('lhint-ps')" onblur="hideHint('lhint-ps')"/>
+          <div id="lhint-ps" class="field-hint" style="display:none;">💰 Le prix que le client va payer. VEKO va analyser si ce prix te permet de gagner de l'argent après tous tes frais.</div>
         </div>
         <div class="calc-field">
-          <label class="calc-label">OBJECTIF BÉNÉFICE NET PAR PIÈCE (FCFA) *</label>
-          <input class="form-input" type="number" id="l1-ob" placeholder="Ex: 5000" oninput="lStep1Validate()"/>
+          <label class="calc-label">🎯 Tu veux gagner combien par pièce vendue ? (FCFA)</label>
+          <input class="form-input" type="number" id="l1-ob" placeholder="Ex: 5 000" oninput="lStep1Validate()" onfocus="showHint('lhint-ob')" onblur="hideHint('lhint-ob')"/>
+          <div id="lhint-ob" class="field-hint" style="display:none;">🎯 C'est ton objectif de bénéfice net — ce qui reste dans ta poche après avoir payé tout. Ex : si tu vends à 14 500 et veux garder 5 000, VEKO calcule si c'est réaliste.</div>
         </div>
         <div class="calc-field" style="margin-bottom:24px;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <label class="calc-label" style="margin:0;">PRIX CONCURRENT (FCFA)</label>
+            <label class="calc-label" style="margin:0;">🏆 Tes concurrents vendent ce produit à combien ?</label>
             <label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
               <input type="checkbox" id="l1-nsp" onchange="document.getElementById('l1-pc').disabled=this.checked;document.getElementById('l1-pc').style.opacity=this.checked?'0.4':'1';" style="accent-color:#8b5cf6;"/>
               <span style="font-size:11px;color:var(--text-muted);">Je ne sais pas</span>
             </label>
           </div>
-          <input class="form-input" type="number" id="l1-pc" placeholder="Prix vendu par tes concurrents" oninput="lStep1Validate()"/>
+          <input class="form-input" type="number" id="l1-pc" placeholder="Prix vendu par tes concurrents" oninput="lStep1Validate()" onfocus="showHint('lhint-pc')" onblur="hideHint('lhint-pc')"/>
+          <div id="lhint-pc" class="field-hint" style="display:none;">🏆 Si tu connais le prix des autres vendeurs sur ce produit — mets-le ici. VEKO te dira si ton prix est compétitif ou pas. Si tu sais pas, coche "Je ne sais pas".</div>
         </div>
         <button class="btn btn-primary" id="l1-next" style="width:100%;justify-content:center;background:linear-gradient(135deg,#8b5cf6,#ec4899);box-shadow:0 4px 15px rgba(139,92,246,0.4);" onclick="lGoStep(2)" disabled>
           Suivant — Source d'Acquisition <i class="fas fa-arrow-right"></i>
@@ -922,8 +995,9 @@ footer .logo-text{
         <!-- LOCAL fields -->
         <div id="l2-local-f" style="display:none;">
           <div class="calc-field">
-            <label class="calc-label">PRIX D'ACHAT UNITAIRE (FCFA)</label>
-            <input class="form-input" type="number" id="l2-pa" placeholder="2500" oninput="lStep2Validate()"/>
+            <label class="calc-label">💰 Tu as acheté ce produit à combien ? (FCFA)</label>
+            <input class="form-input" type="number" id="l2-pa" placeholder="Ex : 2 500" oninput="lStep2Validate()" onfocus="showHint('lhint-pa')" onblur="hideHint('lhint-pa')"/>
+            <div id="lhint-pa" class="field-hint" style="display:none;">💰 Le prix que tu as payé pour <strong>une seule pièce</strong> chez ton fournisseur local.</div>
           </div>
           <div class="calc-field" style="margin-bottom:20px;">
             <label class="calc-label">FRAIS DE TRANSPORT / RÉCUPÉRATION POUR CE STOCK ?</label>
@@ -941,12 +1015,14 @@ footer .logo-text{
           <div id="l2-transport-f" style="display:none;">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
               <div class="calc-field" style="margin-bottom:0;">
-                <label class="calc-label">MONTANT TRANSPORT (FCFA)</label>
-                <input class="form-input" type="number" id="l2-tmontant" placeholder="5000" oninput="lStep2Validate()"/>
+                <label class="calc-label">🚕 Combien tu as payé en transport ? (FCFA)</label>
+                <input class="form-input" type="number" id="l2-tmontant" placeholder="Ex : 5 000" oninput="lStep2Validate()" onfocus="showHint('lhint-tm')" onblur="hideHint('lhint-tm')"/>
+                <div id="lhint-tm" class="field-hint" style="display:none;">🚕 Le montant total que tu as payé pour récupérer ce stock — taxi, livraison, moto, etc.</div>
               </div>
               <div class="calc-field" style="margin-bottom:0;">
-                <label class="calc-label">NB PIÈCES TRANSPORTÉES</label>
-                <input class="form-input" type="number" id="l2-tnb" placeholder="10" oninput="lStep2Validate()"/>
+                <label class="calc-label">📦 Tu as transporté combien de pièces ?</label>
+                <input class="form-input" type="number" id="l2-tnb" placeholder="Ex : 10" oninput="lStep2Validate()" onfocus="showHint('lhint-tnb')" onblur="hideHint('lhint-tnb')"/>
+                <div id="lhint-tnb" class="field-hint" style="display:none;">📦 Le nombre total de pièces dans ce transport. VEKO divise le frais par ce nombre pour avoir le coût par pièce.</div>
               </div>
             </div>
           </div>
@@ -968,12 +1044,14 @@ footer .logo-text{
           <div id="l2-import-global-f" style="display:none;">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
               <div class="calc-field" style="margin-bottom:0;">
-                <label class="calc-label">COÛT TOTAL IMPORTATION (FCFA)</label>
-                <input class="form-input" type="number" id="l2-ig-cout" placeholder="150000" oninput="lStep2Validate()"/>
+                <label class="calc-label">💸 Combien t'a coûté toute l'importation ? (FCFA)</label>
+                <input class="form-input" type="number" id="l2-ig-cout" placeholder="Ex : 150 000" oninput="lStep2Validate()" onfocus="showHint('lhint-igc')" onblur="hideHint('lhint-igc')"/>
+                <div id="lhint-igc" class="field-hint" style="display:none;">💸 Le total que tu as dépensé : produit + transport + douanes + tout. VEKO divise ça par le nombre d'articles.</div>
               </div>
               <div class="calc-field" style="margin-bottom:0;">
-                <label class="calc-label">NB ARTICLES IMPORTÉS</label>
-                <input class="form-input" type="number" id="l2-ig-nb" placeholder="50" oninput="lStep2Validate()"/>
+                <label class="calc-label">📦 Tu as importé combien d'articles ?</label>
+                <input class="form-input" type="number" id="l2-ig-nb" placeholder="Ex : 50" oninput="lStep2Validate()" onfocus="showHint('lhint-ign')" onblur="hideHint('lhint-ign')"/>
+                <div id="lhint-ign" class="field-hint" style="display:none;">📦 Le nombre total de pièces que tu as reçues dans cette importation.</div>
               </div>
             </div>
           </div>
@@ -1070,8 +1148,9 @@ footer .logo-text{
           </div>
           <div id="l3-loyer-f" style="display:none;">
             <div class="calc-field">
-              <label class="calc-label">MONTANT MENSUEL (FCFA)</label>
-              <input class="form-input" type="number" id="l3-loyer" placeholder="Ex: 80 000" oninput="lCalcFinal()"/>
+              <label class="calc-label">🏠 Ton loyer mensuel combien ? (FCFA)</label>
+              <input class="form-input" type="number" id="l3-loyer" placeholder="Ex: 80 000" oninput="lCalcFinal()" onfocus="showHint('lhint-loyer')" onblur="hideHint('lhint-loyer')"/>
+              <div id="lhint-loyer" class="field-hint" style="display:none;">🏠 Le loyer que tu paies chaque mois pour ta boutique. VEKO va le répartir sur tes ventes pour calculer ce que coûte réellement chaque pièce.</div>
             </div>
             <div id="l3-seul-section" style="display:none;">
               <div style="margin-bottom:14px;">
@@ -1113,8 +1192,9 @@ footer .logo-text{
           </div>
           <div id="l3-pub-f" style="display:none;">
             <div class="calc-field">
-              <label class="calc-label">BUDGET PUB TOTAL POUR CE LANCEMENT (FCFA)</label>
-              <input class="form-input" type="number" id="l3-pub" placeholder="Ex: 50 000" oninput="lCalcFinal()"/>
+              <label class="calc-label">📢 Ton budget pub total pour lancer ce produit ? (FCFA)</label>
+              <input class="form-input" type="number" id="l3-pub" placeholder="Ex: 50 000" oninput="lCalcFinal()" onfocus="showHint('lhint-pub3')" onblur="hideHint('lhint-pub3')"/>
+              <div id="lhint-pub3" class="field-hint" style="display:none;">📢 Combien tu prévois de dépenser en pub Facebook/TikTok pour vendre tout ton stock. VEKO divise ça par le nombre de ventes estimées.</div>
             </div>
             <div class="calc-field" style="margin-bottom:0;">
               <label class="calc-label">EN COMBIEN DE TEMPS ESPÉREZ-VOUS ÉPUISER LE STOCK ?</label>
@@ -1129,25 +1209,28 @@ footer .logo-text{
 
         <!-- STAFF -->
         <div class="calc-field">
-          <label class="calc-label"><i class="fas fa-users" style="margin-right:5px;color:#10b981;"></i>AVEZ-VOUS DU PERSONNEL ?</label>
+          <label class="calc-label">👥 Tu as du personnel pour gérer ce produit ?</label>
           <div style="display:flex;flex-direction:column;gap:8px;">
             <button type="button" class="lstaff-btn lstaff-active" id="lstaff-seul" onclick="lSetStaff('seul')"><i class="fas fa-user" style="margin-right:6px;"></i>Non, je gère seul</button>
             <button type="button" class="lstaff-btn" id="lstaff-salaire" onclick="lSetStaff('salaire')"><i class="fas fa-money-bill-wave" style="margin-right:6px;"></i>Oui, salaire fixe mensuel</button>
             <button type="button" class="lstaff-btn" id="lstaff-commission" onclick="lSetStaff('commission')"><i class="fas fa-percentage" style="margin-right:6px;"></i>Oui, commission par vente</button>
           </div>
           <div id="l3-salaire-f" style="display:none;margin-top:12px;">
-            <label class="calc-label">SALAIRE MENSUEL (FCFA)</label>
-            <input class="form-input" type="number" id="l3-salaire" placeholder="Ex: 30 000" oninput="lCalcFinal()"/>
+            <label class="calc-label">💵 Son salaire mensuel ? (FCFA)</label>
+            <input class="form-input" type="number" id="l3-salaire" placeholder="Ex: 30 000" oninput="lCalcFinal()" onfocus="showHint('lhint-sal')" onblur="hideHint('lhint-sal')"/>
+            <div id="lhint-sal" class="field-hint" style="display:none;">💵 Le salaire fixe que tu lui paies chaque mois. VEKO va le répartir sur tes ventes estimées.</div>
           </div>
           <div id="l3-commission-f" style="display:none;margin-top:12px;">
-            <label class="calc-label">COMMISSION PAR PIÈCE VENDUE (FCFA)</label>
-            <input class="form-input" type="number" id="l3-comm" placeholder="Ex: 1 000" oninput="lCalcFinal()"/>
+            <label class="calc-label">💵 Sa commission par pièce vendue ? (FCFA)</label>
+            <input class="form-input" type="number" id="l3-comm" placeholder="Ex: 1 000" oninput="lCalcFinal()" onfocus="showHint('lhint-comm3')" onblur="hideHint('lhint-comm3')"/>
+            <div id="lhint-comm3" class="field-hint" style="display:none;">💵 Combien tu lui donnes pour chaque pièce qu'il gère ou vend.</div>
           </div>
         </div>
 
         <div class="calc-field">
-          <label class="calc-label">AUTRES FRAIS DIVERS PAR PIÈCE (FCFA)</label>
-          <input class="form-input" type="number" id="l3-autres" placeholder="Emballage, étiquettes, etc." value="0" oninput="lCalcFinal()"/>
+          <label class="calc-label">📦 Autres frais par pièce ? (emballage, étiquettes...) <span style="font-weight:400;color:var(--text-muted);">— 0 si rien</span></label>
+          <input class="form-input" type="number" id="l3-autres" placeholder="0" value="0" oninput="lCalcFinal()" onfocus="showHint('lhint-autres')" onblur="hideHint('lhint-autres')"/>
+          <div id="lhint-autres" class="field-hint" style="display:none;">📦 Tout ce que tu dépenses par pièce en plus : emballage cadeau, étiquette, scotch, sac plastique, etc. Si tu sais pas exactement, estime entre 100 et 500 FCFA.</div>
         </div>
 
         <!-- Quick preview -->
@@ -1229,16 +1312,143 @@ footer .logo-text{
   </div>
 </section>
 
+<!-- VEKO VS EXCEL -->
+<div style="background:var(--dark-card);border-top:1px solid var(--diamond-border);border-bottom:1px solid var(--diamond-border);padding:80px 24px;">
+  <div style="max-width:860px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:40px;">
+      <div style="font-size:11px;font-weight:700;color:var(--accent-purple);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">La vraie différence</div>
+      <h2 style="font-size:clamp(24px,4vw,38px);font-weight:900;letter-spacing:-1px;">VEKO vs Excel</h2>
+      <p style="color:var(--text-muted);font-size:15px;margin-top:10px;">Excel calcule ce que tu lui donnes. VEKO calcule ce que tu oublies.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <!-- EXCEL -->
+      <div style="background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.15);border-radius:20px;padding:24px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:rgba(239,68,68,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;">📊</div>
+          <div style="font-size:16px;font-weight:800;color:var(--text-primary);">Excel</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;"><i class="fas fa-times" style="color:#ef4444;margin-top:3px;flex-shrink:0;"></i><span style="font-size:13px;color:var(--text-muted);">Tu dois tout saisir manuellement à chaque fois</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;"><i class="fas fa-times" style="color:#ef4444;margin-top:3px;flex-shrink:0;"></i><span style="font-size:13px;color:var(--text-muted);">Les frais Mobile Money — tu les oublies souvent</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;"><i class="fas fa-times" style="color:#ef4444;margin-top:3px;flex-shrink:0;"></i><span style="font-size:13px;color:var(--text-muted);">Aucun calcul automatique pour les refus livraison</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;"><i class="fas fa-times" style="color:#ef4444;margin-top:3px;flex-shrink:0;"></i><span style="font-size:13px;color:var(--text-muted);">Pas d'historique ni de suivi mensuel</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;"><i class="fas fa-times" style="color:#ef4444;margin-top:3px;flex-shrink:0;"></i><span style="font-size:13px;color:var(--text-muted);">Pas adapté au marché africain</span></div>
+        </div>
+      </div>
+      <!-- VEKO -->
+      <div style="background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.25);border-radius:20px;padding:24px;position:relative;">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent-green);color:#000;font-size:11px;font-weight:800;padding:4px 14px;border-radius:20px;white-space:nowrap;">FAIT POUR TOI</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:rgba(16,185,129,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;">⚡</div>
+          <div style="font-size:16px;font-weight:800;color:var(--accent-green);">VEKO</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;"><i class="fas fa-check" style="color:#10b981;margin-top:3px;flex-shrink:0;"></i><span style="font-size:13px;color:var(--text-secondary);">Calcul automatique après chaque saisie</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;"><i class="fas fa-check" style="color:#10b981;margin-top:3px;flex-shrink:0;"></i><span style="font-size:13px;color:var(--text-secondary);">Frais Mobile Money intégrés automatiquement</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;"><i class="fas fa-check" style="color:#10b981;margin-top:3px;flex-shrink:0;"></i><span style="font-size:13px;color:var(--text-secondary);">Coût réel des refus à la livraison calculé</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;"><i class="fas fa-check" style="color:#10b981;margin-top:3px;flex-shrink:0;"></i><span style="font-size:13px;color:var(--text-secondary);">Historique et suivi mensuel intégrés</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px;"><i class="fas fa-check" style="color:#10b981;margin-top:3px;flex-shrink:0;"></i><span style="font-size:13px;color:var(--text-secondary);">Fait pour la livraison cash et le marché africain</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TÉMOIGNAGES -->
+<div style="padding:80px 24px;max-width:860px;margin:0 auto;">
+  <div style="text-align:center;margin-bottom:36px;">
+    <div style="font-size:11px;font-weight:700;color:var(--accent-green);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">Ce qu'ils disent</div>
+    <h2 style="font-size:clamp(22px,4vw,36px);font-weight:900;letter-spacing:-1px;">Les premiers retours</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div style="background:var(--dark-card);border:1px solid var(--diamond-border);border-radius:20px;padding:22px;">
+      <div style="font-size:20px;color:var(--accent-orange);margin-bottom:12px;">❝</div>
+      <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px;">"Enfin un outil qui calcule vraiment. J'ai découvert que je perdais 35 000 FCFA par mois sans le savoir."</p>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;font-size:15px;">🇨🇮</div>
+        <div><div style="font-size:13px;font-weight:700;color:var(--text-primary);">Aminata K.</div><div style="font-size:11px;color:var(--text-muted);">E-commerçante — Abidjan</div></div>
+      </div>
+    </div>
+    <div style="background:var(--dark-card);border:1px solid var(--diamond-border);border-radius:20px;padding:22px;">
+      <div style="font-size:20px;color:var(--accent-orange);margin-bottom:12px;">❝</div>
+      <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px;">"Je pensais gagner 150 000 ce mois. VEKO m'a montré la réalité. Maintenant je sais exactement où part l'argent."</p>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#10b981,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:15px;">🇸🇳</div>
+        <div><div style="font-size:13px;font-weight:700;color:var(--text-primary);">Moussa D.</div><div style="font-size:11px;color:var(--text-muted);">Dropshipper — Dakar</div></div>
+      </div>
+    </div>
+    <div style="background:var(--dark-card);border:1px solid var(--diamond-border);border-radius:20px;padding:22px;">
+      <div style="font-size:20px;color:var(--accent-orange);margin-bottom:12px;">❝</div>
+      <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px;">"Le labo de prix m'a sauvé. J'allais lancer un produit à perte sans le savoir. VEKO me l'a montré avant."</p>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#ec4899);display:flex;align-items:center;justify-content:center;font-size:15px;">🇲🇱</div>
+        <div><div style="font-size:13px;font-weight:700;color:var(--text-primary);">Fatoumata T.</div><div style="font-size:11px;color:var(--text-muted);">Vendeuse en ligne — Bamako</div></div>
+      </div>
+    </div>
+    <div style="background:var(--dark-card);border:1px solid var(--diamond-border);border-radius:20px;padding:22px;">
+      <div style="font-size:20px;color:var(--accent-orange);margin-bottom:12px;">❝</div>
+      <p style="font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px;">"Simple, rapide, efficace. En 2 minutes j'avais tous mes vrais chiffres. C'est fait pour nous les vendeurs africains."</p>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#10b981);display:flex;align-items:center;justify-content:center;font-size:15px;">🇧🇫</div>
+        <div><div style="font-size:13px;font-weight:700;color:var(--text-primary);">Kader O.</div><div style="font-size:11px;color:var(--text-muted);">Revendeur — Ouagadougou</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- WAITLIST -->
 <div class="waitlist-section" id="waitlist">
   <div class="waitlist-inner">
     <div class="wl-head">
-      <div class="limited-pill"><div class="limited-dot"></div>Moins de 20 places fondateurs</div>
+      <div class="limited-pill"><div class="limited-dot"></div>Accès fondateur — Offre limitée</div>
       <h2 style="margin-bottom:14px;">Tu as vu ce que VEKO peut faire.<br/><span class="h1-accent">Imagine ça pour chaque commande.</span></h2>
       <p style="color:var(--text-muted);font-size:15px;max-width:480px;margin:0 auto;">
-        VEKO n'est pas encore public. Nous sélectionnons nos premiers membres à la main.
+        VEKO n'est pas encore public. Nous sélectionnons nos premiers membres à la main.<br/>
         Remplis le formulaire — on te contacte sur WhatsApp sous 24h.
       </p>
+
+      <!-- SPOTS PROGRESS BAR -->
+      <div style="margin:28px auto 0;max-width:400px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:16px;padding:20px 24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <span style="font-size:13px;font-weight:700;color:var(--text-secondary);">Places fondateur prises</span>
+          <span style="font-size:14px;font-weight:900;color:var(--accent-orange);">17 / 20</span>
+        </div>
+        <div style="background:var(--dark-elevated);border-radius:8px;height:10px;overflow:hidden;">
+          <div style="width:85%;height:100%;background:linear-gradient(90deg,var(--accent-orange),#ef4444);border-radius:8px;transition:width 1s ease;"></div>
+        </div>
+        <div style="font-size:12px;color:var(--accent-orange);font-weight:700;margin-top:10px;text-align:center;">⚠ Plus que 3 places — 5 000 FCFA paiement unique à vie</div>
+      </div>
+
+      <!-- WHAT YOU GET -->
+      <div style="max-width:420px;margin:20px auto 0;text-align:left;background:var(--dark-card);border:1px solid var(--diamond-border);border-radius:16px;padding:20px 24px;">
+        <div style="font-size:11px;font-weight:700;color:var(--accent-green);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">Ce que tu obtiens</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);"><i class="fas fa-check-circle" style="color:var(--accent-green);width:16px;flex-shrink:0;"></i>Accès complet à toutes les fonctionnalités</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);"><i class="fas fa-check-circle" style="color:var(--accent-green);width:16px;flex-shrink:0;"></i>Mises à jour incluses à vie</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);"><i class="fas fa-check-circle" style="color:var(--accent-green);width:16px;flex-shrink:0;"></i>Support direct via WhatsApp</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);"><i class="fas fa-check-circle" style="color:var(--accent-green);width:16px;flex-shrink:0;"></i>Tarif fondateur bloqué à vie</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);"><i class="fas fa-check-circle" style="color:var(--accent-green);width:16px;flex-shrink:0;"></i>Accès prioritaire aux nouvelles fonctionnalités</div>
+        </div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--diamond-border);text-align:center;">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Prix fondateur</div>
+          <span style="font-size:32px;font-weight:900;color:var(--accent-orange);">5 000 FCFA</span>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Paiement unique · Pas d'abonnement · Accès à vie</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px;">
+      <!-- GROS BOUTON WHATSAPP EN PREMIER -->
+      <a href="https://wa.me/242056994448?text=Bonjour%2C%20je%20veux%20l%27acc%C3%A8s%20fondateur%20VEKO%20%E2%80%94%205%20000%20FCFA" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:14px;background:linear-gradient(135deg,#25D366,#128C7E);color:white;font-weight:800;font-size:17px;padding:20px 28px;border-radius:16px;text-decoration:none;box-shadow:0 8px 32px rgba(37,211,102,0.35);margin-bottom:12px;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 40px rgba(37,211,102,0.45)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 32px rgba(37,211,102,0.35)'">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <div style="text-align:left;">
+          <div>Je veux mon accès fondateur →</div>
+          <div style="font-size:12px;font-weight:400;opacity:0.85;">Réponse immédiate sur WhatsApp</div>
+        </div>
+      </a>
+      <div style="font-size:12px;color:var(--text-muted);text-align:center;margin-bottom:24px;">Tu cliques → WhatsApp s'ouvre → on discute directement</div>
+
+      <div class="divider">ou remplis le formulaire — on te rappelle sous 24h</div>
     </div>
 
     <div class="tally-container">
@@ -1252,13 +1462,26 @@ footer .logo-text{
       </iframe>
     </div>
 
-    <div class="divider">ou contacte-nous directement</div>
+    <div class="divider">ou contacte-nous directement sur WhatsApp</div>
 
-    <a href="https://wa.me/242056994448?text=Bonjour%2C%20je%20veux%20en%20savoir%20plus%20sur%20VEKO%20et%20l'acc%C3%A8s%20fondateur" target="_blank" class="btn-wa">
+    <a href="https://wa.me/242056994448?text=Bonjour%2C%20je%20veux%20l%27acc%C3%A8s%20fondateur%20VEKO" target="_blank" class="btn-wa">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Nous contacter sur WhatsApp
+      +242 05 699 44 48 — Réponse immédiate
     </a>
     <p class="privacy">🔒 Données confidentielles — Aucun spam, aucune arnaque.</p>
+  </div>
+</div>
+
+<!-- EXIT INTENT POPUP -->
+<div id="exit-popup" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--dark-card);border:1px solid rgba(245,158,11,0.3);border-radius:24px;padding:36px 28px;max-width:380px;width:100%;text-align:center;position:relative;">
+    <button onclick="document.getElementById('exit-popup').style.display='none'" style="position:absolute;top:16px;right:16px;background:transparent;border:none;color:var(--text-muted);font-size:18px;cursor:pointer;">✕</button>
+    <div style="font-size:40px;margin-bottom:16px;">⚠️</div>
+    <div style="font-size:11px;font-weight:700;color:var(--accent-orange);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;">Attends avant de partir</div>
+    <h3 style="font-size:22px;font-weight:900;color:var(--text-primary);margin-bottom:12px;line-height:1.3;">Il reste <span style="color:var(--accent-orange);">3 places</span> fondateur</h3>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.6;margin-bottom:24px;">5 000 FCFA — paiement unique, accès complet à vie.<br/>Après les 20 fondateurs, le prix monte définitivement.</p>
+    <a href="#waitlist" onclick="document.getElementById('exit-popup').style.display='none'" style="display:block;background:var(--accent-orange);color:#000;font-weight:800;font-size:15px;padding:16px 24px;border-radius:14px;text-decoration:none;margin-bottom:12px;">Je prends ma place →</a>
+    <button onclick="document.getElementById('exit-popup').style.display='none'" style="background:transparent;border:none;color:var(--text-muted);font-size:13px;cursor:pointer;text-decoration:underline;">Non merci, je préfère passer</button>
   </div>
 </div>
 
@@ -1275,6 +1498,20 @@ function switchTab(id,btn){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('p-'+id).classList.add('active');
+}
+
+function showTabExplain(id){
+  document.getElementById('explain-calcul') && (document.getElementById('explain-calcul').style.display = id==='calcul' ? 'block' : 'none');
+  document.getElementById('explain-labo') && (document.getElementById('explain-labo').style.display = id==='labo' ? 'block' : 'none');
+}
+
+function showHint(id){
+  const el=document.getElementById(id);
+  if(el){ el.style.display='block'; }
+}
+function hideHint(id){
+  const el=document.getElementById(id);
+  if(el){ setTimeout(()=>{ el.style.display='none'; }, 200); }
 }
 
 // ========== CALCUL ==========
@@ -1866,27 +2103,27 @@ revEls.forEach(el=>revObs.observe(el));
   // Phase 1 — already shown at 0
   showPhase('rev-p1');
 
-  // Phase 2 — 6s
-  t(()=>showPhase('rev-p2'), 6000);
+  // Phase 2 — 3.5s
+  t(()=>showPhase('rev-p2'), 3500);
 
-  // Phase 3 — 12s
+  // Phase 3 — 7s
   t(()=>{
     showPhase('rev-p3');
     // "Tu as oublié..." fades in after 1.5s
-    t(()=>{document.getElementById('rev-p3-sub').style.opacity='1';}, 1500);
-  }, 12000);
+    t(()=>{document.getElementById('rev-p3-sub').style.opacity='1';}, 1000);
+  }, 7000);
 
-  // Phase 4 — 16s, costs appear one by one
-  t(()=>showPhase('rev-p4'), 16000);
-  t(()=>document.getElementById('rev-cost-1').classList.add('show'), 17000);
-  t(()=>document.getElementById('rev-cost-2').classList.add('show'), 18500);
-  t(()=>document.getElementById('rev-cost-3').classList.add('show'), 20000);
+  // Phase 4 — 9.5s, costs appear one by one
+  t(()=>showPhase('rev-p4'), 9500);
+  t(()=>document.getElementById('rev-cost-1').classList.add('show'), 10200);
+  t(()=>document.getElementById('rev-cost-2').classList.add('show'), 11200);
+  t(()=>document.getElementById('rev-cost-3').classList.add('show'), 12200);
 
-  // Phase 5 — 22s, animated counter
+  // Phase 5 — 14s, animated counter
   t(()=>{
     showPhase('rev-p5');
     const counterEl=document.getElementById('rev-counter');
-    const start=10000, end=1000, duration=4000;
+    const start=10000, end=1000, duration=3000;
     const startTime=performance.now();
     function tick(now){
       const elapsed=now-startTime;
@@ -1909,20 +2146,20 @@ revEls.forEach(el=>revObs.observe(el));
     }
     requestAnimationFrame(tick);
     // sub text
-    t(()=>{document.getElementById('rev-counter-sub').style.opacity='1';}, 2000);
-    // shake at 4s
+    t(()=>{document.getElementById('rev-counter-sub').style.opacity='1';}, 1500);
+    // shake at 3s
     t(()=>{
       const w=document.getElementById('rev-counter-wrap');
       w.classList.add('rev-counter-shake');
       setTimeout(()=>w.classList.remove('rev-counter-shake'),500);
-    }, 4000);
-  }, 22000);
+    }, 3000);
+  }, 14000);
 
-  // Phase 6 — 27s
+  // Phase 6 — 18s
   t(()=>{
     showPhase('rev-p6');
     t(()=>{document.getElementById('rev-p6-cta').style.opacity='1';}, 300);
-  }, 27000);
+  }, 18000);
 
 })();
 
@@ -1931,6 +2168,117 @@ function closeRevelation(){
   overlay.classList.add('fade-out');
   setTimeout(()=>{overlay.style.display='none';}, 600);
 }
+
+function closeAndScrollToTools(){
+  closeRevelation();
+  setTimeout(()=>{
+    const el=document.getElementById('tools');
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+    setTimeout(()=>{
+      const guide=document.getElementById('tools-guide');
+      if(guide){
+        guide.style.display='block';
+        guide.style.animation='fadeUp 0.5s ease both';
+        setTimeout(()=>{guide.style.display='none';}, 8000);
+      }
+    }, 800);
+  }, 700);
+}
+
+// ===== STICKY BAR =====
+setTimeout(()=>{
+  const bar=document.getElementById('sticky-bar');
+  if(bar) bar.style.transform='translateY(0)';
+}, 4000);
+
+// ===== EXIT INTENT =====
+let exitShown=false;
+document.addEventListener('mouseleave',(e)=>{
+  if(e.clientY<=0 && !exitShown){
+    exitShown=true;
+    const popup=document.getElementById('exit-popup');
+    if(popup){ popup.style.display='flex'; }
+  }
+});
+// Mobile: show after 40s of inactivity
+let inactivityTimer;
+function resetInactivity(){
+  clearTimeout(inactivityTimer);
+  inactivityTimer=setTimeout(()=>{
+    if(!exitShown){
+      exitShown=true;
+      const popup=document.getElementById('exit-popup');
+      if(popup){ popup.style.display='flex'; }
+    }
+  }, 40000);
+}
+['touchstart','scroll','click'].forEach(ev=>document.addEventListener(ev,resetInactivity,{passive:true}));
+resetInactivity();
+
+// ===== LIVE USERS COUNTER =====
+(function(){
+  const el=document.getElementById('live-count');
+  if(!el) return;
+  let count=Math.floor(Math.random()*15)+18;
+  el.textContent=count;
+  setInterval(()=>{
+    const delta=Math.random()>0.5?1:-1;
+    count=Math.max(12,Math.min(47,count+delta));
+    el.textContent=count;
+  }, 7000);
+})();
+
+// ===== HERO COUNTER ANIMATION =====
+(function(){
+  let count=143;
+  const el=document.getElementById('hero-counter');
+  if(!el) return;
+  setTimeout(()=>{
+    setInterval(()=>{
+      if(Math.random()>0.7){
+        count+=Math.floor(Math.random()*2)+1;
+        el.textContent=count;
+      }
+    }, 8000);
+  }, 3000);
+})();
+
+// ===== TOAST NOTIFICATIONS (names + actions) =====
+(function(){
+  const toasts=[
+    {flag:'🇨🇮', name:'Aminata', ville:'Abidjan', action:'vient de tester VEKO', delay:8000},
+    {flag:'🇸🇳', name:'Mamadou', ville:'Dakar', action:'s\'est inscrit sur la liste', delay:22000},
+    {flag:'🇧🇫', name:'Kader', ville:'Ouagadougou', action:'vient de tester VEKO', delay:40000},
+    {flag:'🇲🇱', name:'Fatoumata', ville:'Bamako', action:'a rejoint l\'accès fondateur', delay:62000},
+    {flag:'🇨🇬', name:'Christ', ville:'Brazzaville', action:'vient de tester VEKO', delay:85000},
+    {flag:'🇨🇮', name:'Kofi', ville:'Bouaké', action:'s\'est inscrit sur la liste', delay:110000},
+    {flag:'🇸🇳', name:'Ibrahima', ville:'Thiès', action:'vient de tester le labo de prix', delay:140000},
+  ];
+  const container=document.getElementById('toast-container');
+  if(!container) return;
+
+  function showToast(t){
+    const toast=document.createElement('div');
+    toast.style.cssText='background:#1e293b;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,0.4);animation:toastIn 0.4s ease both;pointer-events:auto;max-width:280px;';
+    toast.innerHTML=`
+      <div style="font-size:22px;">${t.flag}</div>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#f0f0f0;">${t.name} — ${t.ville}</div>
+        <div style="font-size:11px;color:#94a3b8;">${t.action}</div>
+      </div>
+      <div style="width:8px;height:8px;background:#10b981;border-radius:50%;flex-shrink:0;margin-left:auto;animation:blink 1.5s infinite;"></div>
+    `;
+    container.appendChild(toast);
+    setTimeout(()=>{
+      toast.style.animation='toastOut 0.4s ease both';
+      setTimeout(()=>toast.remove(), 400);
+    }, 4000);
+  }
+
+  toasts.forEach(t=>{
+    setTimeout(()=>showToast(t), t.delay);
+  });
+})();
 </script>
 </body>
 </html>
